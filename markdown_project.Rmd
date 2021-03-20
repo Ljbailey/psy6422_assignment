@@ -1,0 +1,126 @@
+# Progress So Far
+
+## Do Some Societies Not Care About The Spread Of COVID-19?
+### The Battle Between Greed vs Wellbeing On The Individualistic - Collectivistic Cultural Orientation Continuum.  
+
+
+I have found data on countries [socioeconomic profiles](https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles), [COVID-19](https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv) and [cultural dimenstions](https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture). 
+
+I have also done some data wrangling and merged parts of the data frames. This does need to be *cleaned up*. However, the code does **work**.
+
+
+```{r data wranging, warning = FALSE}
+library(tidyverse)
+library(here)
+library(countrycode)
+library(data.table)
+library(plotly)
+
+# Load in Covid data
+covid <- read.csv(here("covid", "worldometer_coronavirus_summary_data.csv"))
+
+# Load in cultural dimensions data
+dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
+
+# Pars out cultural dimensions data
+dim1 <- dim %>%
+        separate(ctr.country.pdi.idv.mas.uai.ltowvs.ivr, 
+                 c("ctr", "country", "pdi", "idv", "mas", "uai", "lto", "ivr"),
+                 sep = ";")
+
+# Load socioeconomic data
+ses <- read.csv(here("ses", "soci_econ_country_profiles.csv"))
+
+
+# Selecting wanted Covid data
+
+covid1 <- covid %>%
+          select(country, total_cases_per_1m_population, total_deaths_per_1m_population)
+
+# Selecting wanted cultural dimension data
+
+dim2 <- dim1 %>%
+        select(country, idv)
+
+# Selecting wanted socioeconomic data
+
+ses1 <- ses %>%
+        select(country,GDP.per.capita..current.US..)
+
+#Converting country ID to same country country codes
+
+ses2 <- ses1
+dim3 <-dim2
+covid2 <- covid1
+
+ses2$country <- countrycode(ses2$country, origin = "country.name", destination = "cowc")
+
+dim3$country <- countrycode(dim3$country, origin = "country.name", destination = "cowc")
+
+covid2$country <- countrycode(covid2$country, origin = "country.name", destination = "cowc")
+
+
+#Adjoin dataframes with country codes
+
+df_covid_dim <- inner_join(covid2, dim3, "country")
+
+df_all <- inner_join(df_covid_dim, ses2, "country")
+
+#Replacing names
+
+df_covid_dim$country <- countrycode(df_covid_dim$country, origin = "cowc", destination = "country.name")
+
+df_all$country <- countrycode(df_all$country, origin = "cowc", destination = "country.name")
+
+# Deleting country missing data
+
+df_covid_dim <- df_covid_dim %>%
+                na.omit(country)
+
+df_all <- df_all %>%
+         na.omit(country)
+
+#Removing rows with idv data as null
+
+df_covid_dim <- df_covid_dim[!df_covid_dim$idv == "#NULL!", ] 
+
+df_all <- df_all[!df_all$idv == "#NULL!", ]
+
+#Remove duplicate country coding
+
+df_covid_dim <- df_covid_dim[!duplicated
+                       (df_covid_dim[ , "country"]
+                         ),]
+
+df_all <- df_all[!duplicated
+                        (df_all[ , "country"
+                        ]),]
+
+
+#Changing class
+
+df_covid_dim$idv <- as.numeric(df_covid_dim$idv)
+df_all$idv <- as.numeric(df_all$idv)
+class(df_all$idv)
+
+```
+
+### Visualisation 
+I have also made a quick visualisation. 
+
+The individualism score measures the degree of interdependence with members of society. Low scores relate to a collectivist orientation and a high score individualist orientaiton. There are other variables within this dataset outlined [here](https://www.hofstede-insights.com/country-comparison/the-uk/)
+
+Other measures I have parsed out is the countries GDP per capital ($) and COVID-19 deaths and cases per 1 million of the countries population. 
+
+
+```{r visualisation, warning = FALSE}
+
+plotx <- ggplot(df_all, aes(x = idv, y =             total_deaths_per_1m_population, size =total_cases_per_1m_population,
+                          color = GDP.per.capita..current.US..)) + geom_point() + geom_smooth(method = 'lm', se = FALSE)
+ print(plotx)
+```
+
+   
+I am *unsure* whether to still use this data to visualise for my assignment. I may still explore the data I have. Additionally, I could use this data and triangulate it with other data such as adding a button that changes the outcome measure (i.e. not COVID-19). For example, see if there is any trends in the global happiness survey, countries GDP per capita and individualism etc.  
+
+
