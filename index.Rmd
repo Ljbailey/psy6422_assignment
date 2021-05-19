@@ -5,6 +5,7 @@ runtime: shiny
 # Do Some Cultures Neglect Social Determinants of Mental Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
 
 ## Background and Research Question
+Test
 The onset of the COVID-19 epidemic has challenged countries to work together and take preventative measures to avoid deaths such as social distancing etc. Surprisingly, wealthier countries that have more economic and health resources have higher rates of reported COVID-19 cases and related deaths. More COVID-19 cases and deaths in wealthier countries may therefore stem from people not upholding their social responsibility to comply to government and world health organisations COVID-19 guidelines. Could be individualism. 
 This begs the question to whether individualistic cultures have poorer well-being outcomes that are unrelated to wealth but related to social aspects such as the spread of COVID-19, happiness and suicide rates. 
 
@@ -274,7 +275,7 @@ summary(df_all)
 ```
 
 ## Data visualisations
-<<<<<<< HEAD
+
 ```{r visual, warning = FALSE, results= 'hide'}
 
 # Pre-defined aesthetics
@@ -555,6 +556,6 @@ Thus is not reflective of subjective happiness, as even if someone is living the
 
 ## Caveats and Future Directions
 
->>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
+
 
 
