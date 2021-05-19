@@ -1,6 +1,5 @@
 ---
 output: html_document
-runtime: shiny
 ---
 # Do Some Cultures Neglect Social Determinants of Mental Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
 
@@ -456,9 +455,9 @@ plot_sui_happ <- ggplot(df_all, aes(y = suicide_rate,
                 theme_type3 +
                 guides(shape = overide_size_aes) + 
                 adjust_writing
-                     
+```                  
                        
-
+``` {r shiny, warning = FALSE, results= 'hide', eval = FALSE}
 shinyApp(
   
 ui <- fluidPage(
