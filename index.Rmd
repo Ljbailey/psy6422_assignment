@@ -32,11 +32,19 @@ library(rsconnect)
 
 ```{r load in data, warning = FALSE}
 # Loading in the different datasets
+<<<<<<< HEAD
 
 covid <- read.csv(here("covid","worldometer_coronavirus_summary_data.csv"))
 
 dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
 
+=======
+
+covid <- read.csv(here("covid", "worldometer_coronavirus_summary_data.csv"))
+
+dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
+
+>>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 ses <- read.csv(here("ses", "soci_econ_country_profiles.csv"))
 
 happy <- read.csv(here("happiness", "world_happiness_report.csv"))
@@ -184,6 +192,7 @@ df_all$country <-convert_name(df_all$country)
 ```{r data cleaning, warning = FALSE}
 
 #Remove duplicated countries
+<<<<<<< HEAD
 
 
 df_covid <- df_covid[!duplicated
@@ -198,6 +207,22 @@ df_life <- df_life[!duplicated
                              (df_life[ , "country"
                              ]),]
 
+=======
+
+
+df_covid <- df_covid[!duplicated
+                 (df_covid[ , "country"
+                 ]),]
+
+df_happiness <- df_happiness[!duplicated
+                     (df_happiness[ , "country"
+                     ]),]
+
+df_life <- df_life[!duplicated
+                             (df_life[ , "country"
+                             ]),]
+
+>>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 df_wealth <- df_wealth[!duplicated
                    (df_wealth[ , "country"
                    ]),]
@@ -251,7 +276,11 @@ summary(df_all)
 ```
 
 ## Data visualisations
+<<<<<<< HEAD
 ```{r visual, warning = FALSE, results= 'hide'}
+=======
+```{r visual, warning = FALSE}
+>>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 # Pre-defined aesthetics
 line_alpha = 0.2
 point_alpha = 0.8
@@ -497,7 +526,10 @@ server <- function(input, output){
   options = list(height = 600)
 )
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 ```
 
 ```{r app, warning = FALSE}
@@ -520,5 +552,24 @@ Thus is not reflective of subjective happiness, as even if someone is living the
 
 ## Caveats and Future Directions
 
+<<<<<<< HEAD
+=======
+
+
+## Discussion
+### Wealth and Life Expectancy 
+### COVID-19 Cases and Deaths
+### Happiness
+May over fit individualistic countries and ideals and perception of happiness.
+
+Bias as inherently asks about the self rather than the collective. As such, the present reflection may not reflect sense of self and happiness in collectivist cultures but the goals of the group as a whole. 
+The best and worse possibilities is also embedded in the context of the country thus having potential avenues in life can influence the score rather than happiness i.e. individualists having restrictive perception of possibilities thus scoring higher, and collectivists perceiving more possibilities through groups thus scoring lower.
+Thus is not reflective of subjective happiness, as even if someone is living the pictured best life does not mean that they are happy.
+
+### Suicide Rates and Happiness
+
+## Caveats and Future Directions
+
+>>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 
 
