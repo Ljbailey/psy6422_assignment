@@ -32,19 +32,16 @@ library(rsconnect)
 
 ```{r load in data, warning = FALSE}
 # Loading in the different datasets
-<<<<<<< HEAD
+
 
 covid <- read.csv(here("covid","worldometer_coronavirus_summary_data.csv"))
 
 dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
 
-=======
-
 covid <- read.csv(here("covid", "worldometer_coronavirus_summary_data.csv"))
 
 dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
 
->>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 ses <- read.csv(here("ses", "soci_econ_country_profiles.csv"))
 
 happy <- read.csv(here("happiness", "world_happiness_report.csv"))
@@ -192,7 +189,6 @@ df_all$country <-convert_name(df_all$country)
 ```{r data cleaning, warning = FALSE}
 
 #Remove duplicated countries
-<<<<<<< HEAD
 
 
 df_covid <- df_covid[!duplicated
@@ -207,8 +203,6 @@ df_life <- df_life[!duplicated
                              (df_life[ , "country"
                              ]),]
 
-=======
-
 
 df_covid <- df_covid[!duplicated
                  (df_covid[ , "country"
@@ -222,7 +216,6 @@ df_life <- df_life[!duplicated
                              (df_life[ , "country"
                              ]),]
 
->>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 df_wealth <- df_wealth[!duplicated
                    (df_wealth[ , "country"
                    ]),]
@@ -278,9 +271,7 @@ summary(df_all)
 ## Data visualisations
 <<<<<<< HEAD
 ```{r visual, warning = FALSE, results= 'hide'}
-=======
-```{r visual, warning = FALSE}
->>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
+
 # Pre-defined aesthetics
 line_alpha = 0.2
 point_alpha = 0.8
@@ -526,10 +517,6 @@ server <- function(input, output){
   options = list(height = 600)
 )
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 58531a394ed3c28f4fd43361cc4b59c9045e4f56
 ```
 
 ```{r app, warning = FALSE}
@@ -551,9 +538,6 @@ Thus is not reflective of subjective happiness, as even if someone is living the
 ### Suicide Rates and Happiness
 
 ## Caveats and Future Directions
-
-<<<<<<< HEAD
-=======
 
 
 ## Discussion
