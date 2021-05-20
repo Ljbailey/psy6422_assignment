@@ -1,7 +1,17 @@
 ---
+Title: html
 output: html_document
 ---
 # Do Some Cultures Neglect Social Determinants of Mental Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
+
+
+```{r shiny upload }
+knitr::include_app("https://psyassessment.shinyapps.io/psy6422_assignment/", height = "600px")
+
+```
+
+
+
 
 ## Background and Research Question
 Test
@@ -12,25 +22,9 @@ This begs the question to whether individualistic cultures have poorer well-bein
 The exploration of cross-cultural norms and values provides insight into how cultural differences influence peoples mental processes and behaviour. Understanding the cultural factors related to benefits in the socio-economic conditions of countries and the inhabitants well-being can inform behavioural change interventions by highlighting favourable attitudes that underpin the countries prosperity.
 
 
-out.extra='style="border: none;"'
-
-
-
-
-```{r embed, out.width='100%', out.extra='style="border: none;"', echo = FALSE}
-knitr::include_app('http://psyassessment.shinyapps.io/psy6422_assignment',
-                height = "600px")
-```
-
-<iframe width='1000px' height='1000px' src='http://psyassessment.shinyapps.io/psy6422_assignment' allow="picture-in-picture" >
-  <p>Your browser does not support iframes</p>
-</iframe>
-
-
-
-
 ## Data Origin 
 Data was extracted from multiple datasets listed on [Kaggle](https://www.kaggle.com/datasets). An up-to-date [COVID-19 Dataset](https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv) using [Woldometer's](https://www.worldometers.info/coronavirus/) statistics provided the  **countries total COVID-19 cases and deaths per 1 million population** data. This dataset was retrieved on 2021/05/11. The countries [cultural dimensions dataset](https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture) stems from [Hofstede's theory](https://www.hofstede-insights.com/country-comparison/) and data from 2015. The **individualism index** that reflects countries relative position on the collectivist - individualist continuum was extracted. Higher scores represent individualist cultural values whereas lower scores represents collectivist cultural values. This continuum refers to the degree of interdependence with the members of society with individualist cultures having a self-image of "I" and collectivist cultures having more concerned about "we". Countries **GDP per Capita ($)** was extracted from a dataset consisting of countries [socioeconomic profiles](https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles) as of 2017. **Life expectancy** data from 2016 is from the [World Health Organisation dataset](https://www.kaggle.com/mmattson/who-national-life-expectancy). The data from the [2020 World Happiness Report](https://www.kaggle.com/mathurinache/world-happiness-report) was used to extract the **happiness score**. The countries happiness is the average national score on the Cantril Ladder. The [Cantril Ladder](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) consists of people imagining their life in the best and worst way and to rate their present self on a scale from 0-10. **Countries suicide rates of the sexes per 100000 population**  from 2016 was extracted from a [mental health and suicide dataset](https://www.kaggle.com/twinkle0705/mental-health-and-suicide-rates).
+
 
 
 ## Data Preperation
@@ -45,25 +39,22 @@ library(shiny)
 library(ggplot2)
 library(htmlwidgets)
 library(rsconnect)
+library(shinyjs)
+library(shinydashboard)
 ```
 
 ```{r load in data, warning = FALSE}
 # Loading in the different datasets
 
-
-covid <- read.csv(here("covid","worldometer_coronavirus_summary_data.csv"))
-
-dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
-
-covid <- read.csv(here("covid", "worldometer_coronavirus_summary_data.csv"))
-
 dim <- read.csv(here("dimensions", "six_dimenstions.csv"))
 
 ses <- read.csv(here("ses", "soci_econ_country_profiles.csv"))
 
-happy <- read.csv(here("happiness", "world_happiness_report.csv"))
-
 life <- read.csv(here("life", "who_life_exp.csv"))
+
+covid <- read.csv(here("covid","worldometer_coronavirus_summary_data.csv"))
+
+happy <- read.csv(here("happiness", "world_happiness_report.csv"))
 
 suicide <- read.csv(here("suicide", "suicide_rate.csv"))
 
@@ -82,48 +73,48 @@ dim$idv <- as.numeric(dim$idv)# Changes individualism class to numeric
 
 # Selecting required data from each dataset
 
-covid <- covid %>%
-         select(country, total_cases_per_1m_population, total_deaths_per_1m_population)
-
 dim <- dim %>%
          select(country, idv)
+
 
 ses <- ses %>%
          select(country,GDP.per.capita..current.US..)
 
-happy <- happy %>%
-         select(Country.or.region, Score, Overall.rank)
+life <- subset(life, year=="2016") # Remove rows not including year 2016
 
 life <- life %>%
-         select(country, year, life_expect)
+         select(country, life_expect)
 
-life <- subset(life, year=="2016") # Remove rows not including year 2016
+covid <- covid %>%
+         select(country, total_cases_per_1m_population, total_deaths_per_1m_population)
+
+
+happy <- happy %>%
+         select(Country.or.region, Score)
+
 
 suicide <- suicide %>%
            select(Country, Sex, X2016)
 
-# Re-naming columns of each dataset
 
-colnames(covid)[2] <- "total_cases"
-colnames(covid)[3] <- "total_deaths"
+# Re-naming columns of each dataset
 
 colnames(dim)[2] <- "individualism"
 
 colnames(ses)[2] <- "gdp_per_capita"
 
+colnames(life)[1] <- "country"
+colnames(life)[2] <- "life_expectancy"
+
+colnames(covid)[2] <- "total_cases"
+colnames(covid)[3] <- "total_deaths"
+
 colnames(happy)[1] <- "country"
 colnames(happy)[2] <- "happiness_score"
-colnames(happy)[3] <- "rank"
-
-colnames(life)[1] <- "country"
-colnames(life)[2] <- "year"
-colnames(life)[3] <- "life_expectancy"
 
 colnames(suicide)[1] <- "country"
 colnames(suicide)[2] <- "sex"
 colnames(suicide)[3] <- "suicide_rate"
-
-
 
 ```
 #### Merging Datasets
@@ -131,75 +122,39 @@ colnames(suicide)[3] <- "suicide_rate"
 ```{r merging datasets, warning = FALSE}
 #Converting country name to country codes
 
-df.list <- list(ses, dim, covid, happy, life, suicide) # list of dataframes
-
 convert_code <-  function(x) {
       #converts country name to country codes
         countrycode(x, origin = "country.name", destination = "cowc")
 }
 
+dim$country <- convert_code(dim$country)
+
 ses$country <- convert_code(ses$country)
 
-dim$country <- convert_code(dim$country)
+life$country <- convert_code(life$country)
 
 covid$country <- convert_code(covid$country)
 
 happy$country <- convert_code(happy$country)
 
-life$country <- convert_code(life$country)
-
 suicide$country <- convert_code(suicide$country)
 
 
-# Adjoin desired data-frames with country codes
+# Adjoin data-frames with country codes
 
-df_covid <- inner_join(covid, dim, "country")
+df <- inner_join(dim, ses, "country")
 
-df_covid <- inner_join(df_covid, ses, "country")
+df <- inner_join(df, life, "country")
 
-df_happiness <- inner_join(happy, dim, "country")
+df<- inner_join(df, covid, "country")
 
-df_happiness <- inner_join(df_happiness, ses, "country")
+df <- inner_join(df, happy, "country")
 
-df_life <- inner_join(life, dim, "country")
+df <- inner_join(df, suicide, "country")
 
-df_life <- inner_join(df_life, ses, "country")
+# Converting country code back to country names
 
-df_suicide <- inner_join(suicide, dim, "country")
-
-df_suicide <- inner_join(df_suicide, ses, "country")
-
-df_sui_happ <- inner_join(suicide, dim, "country")
-
-df_sui_happ <- inner_join(df_sui_happ, happy, "country")
-
-df_sui_happ <- inner_join(df_sui_happ, ses, "country")
-
-df_wealth <- inner_join(dim, ses, "country")
-
-df_all <- inner_join(df_sui_happ, covid, "country")
-
-df_all <- inner_join(df_all, life, "country")
-
-# Converting country codes back to country names
-convert_name <- function(x) {
-      #converts country code to country name
-        countrycode(x, origin = "cowc", destination = "country.name")
-        }
-
-df_covid$country <- convert_name(df_covid$country)
-
-df_happiness$country <- convert_name(df_happiness$country)
-
-df_life$country <- convert_name(df_life$country)
-
-df_suicide$country <- convert_name(df_suicide$country)
-
-df_sui_happ$country <- convert_name(df_sui_happ$country)
-
-df_wealth$country <- convert_name(df_wealth$country)
-
-df_all$country <-convert_name(df_all$country)
+df$country <- countrycode(df$country, origin = "cowc", destination = "country.name")
 
 ```
 #### Data Cleaning
@@ -207,249 +162,273 @@ df_all$country <-convert_name(df_all$country)
 
 #Remove duplicated countries
 
+df<- df%>% distinct(country,
+                    sex,
+                    .keep_all = TRUE) # Keep duplicated countries according to sex
 
-df_covid <- df_covid[!duplicated
-                 (df_covid[ , "country"
-                 ]),]
-
-df_happiness <- df_happiness[!duplicated
-                     (df_happiness[ , "country"
-                     ]),]
-
-df_life <- df_life[!duplicated
-                             (df_life[ , "country"
-                             ]),]
-
-
-df_covid <- df_covid[!duplicated
-                 (df_covid[ , "country"
-                 ]),]
-
-df_happiness <- df_happiness[!duplicated
-                     (df_happiness[ , "country"
-                     ]),]
-
-df_life <- df_life[!duplicated
-                             (df_life[ , "country"
-                             ]),]
-
-df_wealth <- df_wealth[!duplicated
-                   (df_wealth[ , "country"
-                   ]),]
-
-df_sui_happ <- df_sui_happ[!duplicated
-                               (df_sui_happ[ , "country"
-                               ]),]
-
- 
-df_suicide <- df_suicide %>% distinct(country,sex,
-                            .keep_all = TRUE) # Keep duplicated countries according to sex
-
-df_all <- df_all %>% distinct(country,sex,
-                            .keep_all = TRUE)
 
 # Delete country missing data
 
-df_covid <- df_covid %>%
-  na.omit(country)
-
-df_happiness <- df_happiness %>%
-  na.omit(country)
-
-df_life <- df_life %>%
-  na.omit(country)
-
-df_suicide <- df_suicide %>%
-  na.omit(country)
-
-df_sui_happ <- df_sui_happ %>%
-  na.omit(country)
-
-df_wealth <- df_wealth %>%
-  na.omit(country)
-
-df_all <- df_all %>%
+df <- df %>%
   na.omit(country)
 
 ```
 
 ### Preview Of The Data
 ```{r preview, warning = FALSE}
-summary(df_covid)
-summary(df_happiness)
-summary(df_life)
-summary(df_suicide)
-summary(df_sui_happ)
-summary(df_wealth)
-summary(df_all)
+
+summary(df)
+
+head(df)
 
 ```
 
 ## Data visualisations
-
-```{r visual, warning = FALSE, results= 'hide'}
+### Pre-defining Aesthetics
+```{r aesthetics, warning = FALSE, results= 'hide'}
 
 # Pre-defined aesthetics
-line_alpha = 0.2
-point_alpha = 0.8
-point_alpha2 = 0.5
-individualism_gradient = scale_colour_gradient(low = "blue", 
-                                               high = "orange")
-gdp_gradient = scale_colour_gradient(low = "#ef8d5d", 
-                                     high = "#3fb68e")
-gdp_size_scale = scale_size_continuous(range = c(3, 10), 
-                 breaks = c(10000, 30000, 50000, 70000))
-individualism_xscale = scale_x_continuous(name="Individualism Index", 
-                                          breaks= seq(0, 100, 10)) 
-theme_type1 = theme_light(base_size = 18) 
-              
-theme_type2 = theme_light(base_size = 15) 
-              
-theme_type3 = theme_light(base_size = 12) 
+
+theme_type1 = theme_light(base_size = 15) + theme(legend.background = element_rect(fill = "transparent"))
               
 adjust_writing = theme(plot.caption = element_text(hjust = 0)) +
                  theme(plot.title = element_text(hjust = 0.5))
-overide_line_aes = guide_legend(override.aes =list(linetype =     c(0,0,0,0)))
-overide_size_aes = guide_legend(override.aes = list(size = 5))
-overide_sizeline_aes = guide_legend(override.aes = list(size = 3,
-                                                        linetype = c(0,0,0)))
 
+line_alpha = 0.1
+
+point_alpha3 = 0.2
+
+individualism_xscale = scale_x_continuous(name="Individualism Index", 
+                                          breaks= seq(0, 100, 10)) 
+
+
+suicide_yscale =  scale_y_continuous(name="Suicide Rate
+(per 100000 Population)",
+                                     breaks= seq(0, 50, 5))
+
+individualism_gradient = scale_colour_gradient(low = "blue", 
+                                               high = "orange")
+
+gdp_gradient = scale_colour_gradient2(low = "magenta2",
+                                      mid = "yellow2",
+                                      high = "springgreen2",
+                                      midpoint = 17675,
+                                      breaks = seq(20000, 80000, by = 20000))
+                                      
+gdp_size_scale = scale_size_continuous(range = c(3, 15))
+                                       
+
+line_colour = "firebrick2"
+
+sex_colour_aes = c("#5899DA", "#945ECF", "#19A979")
+
+gdp_sizelegend_adj = guide_legend(reverse = TRUE,
+                                  override.aes =list(linetype = c(0,0,0,0),
+                                                     fill = NA))
+                                  
+legend_labels_adj <- guide_legend(title.position = "top",
+                                  title.hjust = 0.5)
+                                  
+```
+
+### GDP per Capita Graph
+```{r wealth, warning = FALSE, results= 'hide'}
 # Country Wealth Plot
-plot_wealth <- ggplot(df_all, aes (x = individualism, 
-                                      y = gdp_per_capita, 
-                                      shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"),
-                                      color = individualism)) +
+plot_wealth <- ggplot(df, aes (x = individualism, 
+                               y = gdp_per_capita, 
+                               shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"),
+                               color = individualism)) +
                ggtitle("Countries GDP per Capita and Cultural Orientation") +
                labs(color = "Individualism Index", 
                     shape = "Cultural Orientation") +
                individualism_xscale +
                scale_y_continuous(name="GDP per Capita ($)",
-                       breaks= seq(0, 80000, 10000)) +
+                                  breaks= seq(0, 80000, 10000)) +
                geom_smooth((aes(shape=NA)), 
-                           method = 'lm', 
-                           color = "darkgreen", 
-                           alpha = line_alpha) +
-               geom_point(size = 4, alpha = point_alpha) +
+                            method = 'lm', 
+                            color = "darkgreen", 
+                            alpha = line_alpha) +
+               geom_point(size = 7, alpha = point_alpha3) +
                individualism_gradient +
                theme_type1 +
-               adjust_writing 
+               adjust_writing + 
+               theme(legend.position = c(0.3, 0.90),
+                     legend.direction = "horizontal",
+                     legend.box = "horizontal") +
+               guides(shape = legend_labels_adj, 
+                      colourbar= legend_labels_adj)
+```
 
+```{r graph wealth, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+ 
+print(plot_wealth) 
+
+```
+
+### Life Expectancy Graph
+```{r life, warning = FALSE, results= 'hide'}
 
 # Life Expectancy Plot
-plot_life <- ggplot(df_all, aes(x = individualism, 
-                                 y = life_expectancy, 
-                                 size = gdp_per_capita,
-                                 color = gdp_per_capita)) +
+plot_life <- ggplot(df, aes(x = individualism, 
+                            y = life_expectancy, 
+                            size = gdp_per_capita,
+                            color = gdp_per_capita)) +
             ggtitle("Countries Life Expectancy according to Cultural Orientation and GDP per Capita") +
             labs(color = "GDP per Capita ($)", 
                  size = "GDP per Capita ($)", 
                  caption = "*Life expectancy data is from 2016") +
             individualism_xscale +
-            scale_y_continuous(name="Life Expectancy 
+            scale_y_continuous(name = "Life Expectancy 
 (years)", 
-                              breaks= seq(0, 100, 2)) +
+                               breaks= seq(0, 100, 2)) +
             gdp_gradient +
             gdp_size_scale +
             geom_smooth(method = 'lm',
-                        color = "orange", 
+                        color = line_colour, 
                         alpha = line_alpha) +
-            geom_point(alpha = point_alpha) +
-            theme_type2 +
-            guides(size = overide_line_aes) +
+            geom_point(alpha = point_alpha3) +
+            theme_type1 +
+            guides(size = gdp_sizelegend_adj) +
             adjust_writing
+```
 
+```{r graph life, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+ 
+print(plot_life) 
+
+```
+
+### COVID-19 Rates and Deaths Graph
+```{r covid, warning = FALSE, results= 'hide'}
 # COVID Plot
-plot_covid <- ggplot(df_all, aes (x = individualism, 
-                                    y = total_cases, 
-                                    size = total_deaths,
-                                    color = gdp_per_capita)) +
+plot_covid <- ggplot(df, aes (x = individualism, 
+                              y = total_cases, 
+                              size = total_deaths,
+                              color = gdp_per_capita)) +
               ggtitle("COVID-19 Cases and Deaths according to Countries Cultural Orientation and Wealth") +
               labs(color = "GDP per Capita ($)", 
                    size = "Total COVID-19 Deaths
 (per 1 Million Population)", 
-                   caption = "* The 3rd quartile of GDP per Capita equals $42,033
-** Data was retrieved on 11/05/2021") +
+                   caption = "* COVID-19 data was retrieved on 11/05/2021") +
                individualism_xscale +
                scale_y_continuous(name="Total COVID-19 Cases
-(per 1 Million Population)", breaks= seq(0, 155000, 10000)) +
+(per 1 Million Population)",
+                                  breaks= seq(0, 155000, 20000)) + 
                scale_size_continuous(range = c(3, 13), 
                                      breaks = c(500, 1000, 1500, 2000)) +
                gdp_gradient +
                geom_smooth(method = 'lm', 
-                           color = 615, 
+                           color = line_colour, 
                            alpha = line_alpha) +
-               geom_point(alpha = point_alpha) +
-               theme_type2 +
-               guides(size = overide_line_aes) +
+               geom_point(alpha = point_alpha3) +
+               theme_type1 +
+               guides(size = guide_legend(override.aes =list(linetype = c(0,0,0,0),
+                                                             fill = NA),
+                                          
+                                          reverse =  TRUE)) +
                adjust_writing
-          
+
+```
+
+```{r graph covid, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+
+print(plot_covid)
+
+```
+
+
+
+### Happiness Graph
+```{r happy, warning = FALSE, results= 'hide'}          
                       
 #Happiness plot
 
-plot_happy <- ggplot(df_all, aes(x = individualism,
-                                       y = happiness_score,
-                                       size = gdp_per_capita, 
-                                       color = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
+plot_happy <- ggplot(df, aes(x = individualism,
+                             y = happiness_score,
+                             size = gdp_per_capita, 
+                             color = gdp_per_capita,
+                             shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
               ggtitle(
 "Countries Happiness in relation to Cultural Orientation and Wealth") + 
-              labs(color = "Cultural Orientation", 
+              labs(color = "GDP per Capita ($)", 
                    size = "GDP per Capita ($)", 
-                   caption = "* Happiness scores are produced from indicators in the World Happiness Report 2020") +
-                   individualism_xscale + 
-                   scale_y_continuous(name="Happiness Score",
-                                       breaks= seq(0, 10, 0.5))  +
-                   gdp_size_scale +
-                   geom_smooth((aes(colour=NA)), 
-                               color = "#E7C582", 
-                               alpha = line_alpha) +
-                   geom_point(alpha = point_alpha) + 
-                   theme_type1 +
-                   guides(size = overide_line_aes,
-                          color = overide_size_aes) +
-                   scale_color_manual(values= c("#00B0BA", "#0065A2")) + 
-                   adjust_writing
+                   shape = "Cultural Orientation", 
+                   caption = "* Happiness scores are produced from Cantril ladder scored reported in the World Happiness Report 2020") +
+              individualism_xscale + 
+              scale_y_continuous(name = "Happiness Score",
+                                 breaks = seq(0, 10, 0.5))  +
+              gdp_size_scale +
+              geom_smooth((aes(colour = NA,
+                               shape = NA)), 
+                            color = line_colour, 
+                            alpha = line_alpha) +
+              geom_point(alpha = point_alpha3) + 
+              theme_type1 +
+              guides(size = gdp_sizelegend_adj,
+                     shape =  guide_legend(override.aes = list(size = 7)))  + 
+              adjust_writing +
+              gdp_gradient
+
+```
+
+```{r graph happy, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+
+print(plot_happy)
+
+```
 
 
+### Suicide Rates Graph
+```{r suicide, warning = FALSE, results= 'hide'}
 # Suicide Rates 
 
-plot_suicide <- ggplot(df_all, aes(x = individualism, 
-                                       y = suicide_rate,
-                                       size = gdp_per_capita, 
-                                       color = sex, 
-                                       shape = sex)) +
+plot_suicide <- ggplot(df, aes(x = individualism, 
+                               y = suicide_rate,
+                               size = gdp_per_capita, 
+                               color = sex, 
+                               shape = sex)) +
                 ggtitle("Suicide Rates of the Sexes in regards to Countries Wealth and Cultural Orientation") +
                 labs(shape = "Sex", 
                      color = "Sex", 
                      linetype = "Sex", 
                      size = "GDP per Capita ($)", 
-                     caption = "* Suicide rates are standardised by age and are from suicides reported in 2016") +
+                     caption = "* Suicide rates reported in 2016 and are standardised by age") +
                 individualism_xscale + 
-                scale_y_continuous(name="Suicide Rate
-(per 100000 Population)", 
-                                   breaks= seq(0, 50, 5)) +
+                suicide_yscale +
                 gdp_size_scale +
                 geom_smooth(method = 'lm', 
                             alpha = line_alpha, 
                             aes(linetype = sex,
                                 fill = sex)) +
-                geom_point(alpha = point_alpha2) +  
-                theme_type2 +
-                guides(size = overide_line_aes,   
-                shape = overide_sizeline_aes) +
-                scale_linetype_manual(values=c("dashed", "solid", "solid")) +
-                scale_color_manual(values=c("#5899DA", "#945ECF", "#19A979")) + 
-                scale_fill_manual(values=c("#5899DA", "#945ECF", "#19A979")) + 
-                guides(fill = FALSE) +
+                geom_point(alpha = point_alpha3) +  
+                theme_type1 +
+                scale_linetype_manual(values = c("dashed", "solid", "solid")) +
+                scale_color_manual(values = sex_colour_aes) +
+                scale_fill_manual(values = sex_colour_aes)  +
+                guides(size = gdp_sizelegend_adj,   
+                       shape =  guide_legend(override.aes = list(size = 7, 
+                                                                 linetype = c(0,0,0),
+                                                                 fill = NA)), 
+                       fill = FALSE) +
                 adjust_writing
 
+```
 
+```{r graph suicide, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+
+print(plot_suicide)
+
+```
+
+### Happiness and Suicide Rate Graph
+```{r happy suicide, warning = FALSE, results= 'hide'}
 #Happiness and suicide rates
 
-plot_sui_happ <- ggplot(df_all, aes(y = suicide_rate, 
-                                         x = happiness_score,
-                                         size = gdp_per_capita,
-                                         color = individualism,
-                                         shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
+plot_sui_happ <- ggplot(df, aes(y = suicide_rate, 
+                                x = happiness_score,
+                                size = gdp_per_capita,
+                                color = individualism,
+                                shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
                 ggtitle("Suicide Rates according to Countries Happiness, Wealth and Cultural Orientation") +
                 labs(shape = "Cultural Orientation",
                      color = "Individualism Index", 
@@ -458,18 +437,24 @@ plot_sui_happ <- ggplot(df_all, aes(y = suicide_rate,
 ** Happiness scores are produced from indicators in the World Happiness Report 2020") +
                 scale_x_continuous(name="Happiness Score",
                                    breaks= seq(0, 10, 0.5)) +
-                scale_y_continuous(name="Suicide Rate
-(per 100000 Population)",
-                                   breaks= seq(0, 50, 5)) +
+                suicide_yscale +
                 gdp_size_scale +
                 individualism_gradient +
-                geom_point(alpha = point_alpha2) + 
-                theme_type3 +
-                guides(shape = overide_size_aes) + 
+                geom_point(alpha = point_alpha3) + 
+                theme_type1 +
+                guides(shape = guide_legend(override.aes = list(size = 7)),
+                       size = gdp_sizelegend_adj) + 
                 adjust_writing
 ```                  
-                       
-``` {r shiny, warning = FALSE, results= 'hide', eval = FALSE}
+
+```{r graph suicide happy, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+
+print(plot_sui_happ)
+
+```
+
+### Shiny Application
+``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", eval = FALSE}
 shinyApp(
   
 ui <- fluidPage(
@@ -530,7 +515,6 @@ server <- function(input, output){
     }) 
   
 },
-
   options = list(height = 600)
 )
 
