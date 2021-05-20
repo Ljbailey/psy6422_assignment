@@ -256,7 +256,7 @@ plot_wealth <- ggplot(df, aes (x = individualism,
                      legend.direction = "horizontal",
                      legend.box = "horizontal") +
                guides(shape = legend_labels_adj, 
-                      colourbar= legend_labels_adj)
+                      colour = legend_labels_adj)
 ```
 
 ```{r graph wealth, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
