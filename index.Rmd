@@ -1,31 +1,34 @@
 ---
-Title: html
+Title: " Cultural Orientaion, Well-Being Outcomes and Wealth"
 output: html_document
+runtime: shiny
 ---
-# Do Some Cultures Neglect Social Determinants of Mental Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
 
+# Do Some Cultures Neglect Social Determinants of Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
 
-```{r shiny upload }
-knitr::include_app("https://psyassessment.shinyapps.io/psy6422_assignment/", height = "600px")
+## Background and Research Question
+<p>The COVID-19 pandemic has had an enormous impact on people’s health and well-being across the globe. Contraction of the COVID-19 virus can cause [long-term health consequences](https://www.nhs.uk/conditions/coronavirus-covid-19/long-term-effects-of-coronavirus-long-covid/) and has globally [increased morality rates]( https://ourworldindata.org/excess-mortality-covid). Societies have been challenged to adapt and take preventative measures to mitigate COVID-19 infections and COVID-19 related deaths. The World Health Organisation's [COVID-19 guidelines](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public) outlines the preventive measures which primarily includes wearing masks, washing hands, isolating and social distancing. The changes in the structure of living such as reduced physical contact and the fear surrounding contracting COVID-19 has also had repercussions on people’s [mental health](https://www.who.int/teams/mental-health-and-substance-use/covid-19).</p>
+<p>One would think that wealthier countries would have lower COVID-19 cases and death rates as they have more resources for COVID-19 prevention.  On the contrary, deaths ascribed to COVID-19 are [higher in wealthier countries](https://www.brookings.edu/blog/future-development/2020/05/05/the-unreal-dichotomy-in-covid-19-mortality-between-high-income-and-developing-countries/). This begs the question *what factors are involved in the increase of COVID-19 related death in wealthier countries?* Are wealthier societies more susceptible to COVID-19 deaths because they have a higher vulnerable population such as [older age](https://www.economist.com/graphic-detail/2020/11/16/why-rich-countries-are-so-vulnerable-to-covid-19 ) and [obesity](https://www.bmj.com/content/372/bmj.n623#:~:text=The%20UK%20has%20the%20third,67.9%25%20of%20the%20population%20overweight.)? Or are wealthier societies unable to contain the spread of COVID-19 due to poor compliance to the World Health Organisation’s [COVID-19 guidelines](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public)? More generally, *do differences in cultural attitudes, values and perceptions influence social determinants of health and well-being outcomes that are unrelated to wealth and resources?* </p>
+<p>A cultural factor that could have an affect on the spread of COVID-19 is the degree to which the members of society perceive themselves as independent vs interdependent in the given society, this is known as the [individualism vs. collectivism continuum](https://www.hofstede-insights.com/country-comparison/). Individuals in individualist cultures primarily care for themselves and immediate family members and have a self-image of “I” whereas individuals in collectivist cultures care for their society as a whole and have a self-image of “we”. The perceptual differences between cultures may explain the inequality of COVID-19 deaths and other health and well-being outcomes. People in collectivist cultures may see themselves as having a broader impact on society thus abides by COVID-19 guidelines and ascribes higher importance to social responsibilities. In contrast, people in individualist cultures may be less likely to follow COVID-19 guidelines and disregard social responsibilities because of their individual interests. Within individualist cultures, [self-reported non-compliance](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0246941) of public health measures often surrounds behaviours that are inconvenient or not beneficial for them such as using contract tracing applications and willingness to take vaccinations.</p>
+<p>This project attempts to initiate discussions and research into cultural factors associated with health outcomes as cross-cultural norms and values can provide insight into favourable attitudes underpinning societal health and well-being and can inform behavioural change interventions. The association of the following country variables will be examined and visualised to understand the broader cultural influence on health: **individualism index**, **GDP per capita**, **life expectancy**, **COVID-19 rates and deaths**, **happiness** and **suicide rates**.</p>  
 
+```{r pressure, echo=FALSE, out.width = '100%', fig.align = 'center'}
+knitr::include_graphics("pic2.jpg")
 ```
 
 
 
-
-## Background and Research Question
-Test
-The onset of the COVID-19 epidemic has challenged countries to work together and take preventative measures to avoid deaths such as social distancing etc. Surprisingly, wealthier countries that have more economic and health resources have higher rates of reported COVID-19 cases and related deaths. More COVID-19 cases and deaths in wealthier countries may therefore stem from people not upholding their social responsibility to comply to government and world health organisations COVID-19 guidelines. Could be individualism. 
-This begs the question to whether individualistic cultures have poorer well-being outcomes that are unrelated to wealth but related to social aspects such as the spread of COVID-19, happiness and suicide rates. 
-
-
-The exploration of cross-cultural norms and values provides insight into how cultural differences influence peoples mental processes and behaviour. Understanding the cultural factors related to benefits in the socio-economic conditions of countries and the inhabitants well-being can inform behavioural change interventions by highlighting favourable attitudes that underpin the countries prosperity.
-
-
 ## Data Origin 
-Data was extracted from multiple datasets listed on [Kaggle](https://www.kaggle.com/datasets). An up-to-date [COVID-19 Dataset](https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv) using [Woldometer's](https://www.worldometers.info/coronavirus/) statistics provided the  **countries total COVID-19 cases and deaths per 1 million population** data. This dataset was retrieved on 2021/05/11. The countries [cultural dimensions dataset](https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture) stems from [Hofstede's theory](https://www.hofstede-insights.com/country-comparison/) and data from 2015. The **individualism index** that reflects countries relative position on the collectivist - individualist continuum was extracted. Higher scores represent individualist cultural values whereas lower scores represents collectivist cultural values. This continuum refers to the degree of interdependence with the members of society with individualist cultures having a self-image of "I" and collectivist cultures having more concerned about "we". Countries **GDP per Capita ($)** was extracted from a dataset consisting of countries [socioeconomic profiles](https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles) as of 2017. **Life expectancy** data from 2016 is from the [World Health Organisation dataset](https://www.kaggle.com/mmattson/who-national-life-expectancy). The data from the [2020 World Happiness Report](https://www.kaggle.com/mathurinache/world-happiness-report) was used to extract the **happiness score**. The countries happiness is the average national score on the Cantril Ladder. The [Cantril Ladder](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) consists of people imagining their life in the best and worst way and to rate their present self on a scale from 0-10. **Countries suicide rates of the sexes per 100000 population**  from 2016 was extracted from a [mental health and suicide dataset](https://www.kaggle.com/twinkle0705/mental-health-and-suicide-rates).
+<p>Data was extracted from multiple datasets listed on [Kaggle](https://www.kaggle.com/datasets). The countries [cultural dimensions dataset](https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture) stems from [Hofstede's theory](https://www.hofstede-insights.com/country-comparison/) and data from 2015. The **individualism index** that reflects countries relative position on the collectivist - individualist continuum was extracted. Higher scores represent individualist cultural values whereas lower scores represents collectivist cultural values. Countries **GDP per Capita ($)** was extracted from a dataset consisting of countries [socioeconomic profiles](https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles) as of 2017. A dataset containing [World Health Organisation's data](https://www.kaggle.com/mmattson/who-national-life-expectancy) from 2016 was used to extract countries **life expectancy**. An up-to-date [COVID-19 Dataset](https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv) using [Woldometer's](https://www.worldometers.info/coronavirus/) statistics provided the  **countries total COVID-19 cases and deaths per 1 million population** data. This dataset was retrieved on 2021/05/11. The data from the [2020 World Happiness Report](https://www.kaggle.com/mathurinache/world-happiness-report) was used to extract the **happiness score**. The countries happiness is the average national score on the Cantril Ladder. The [Cantril Ladder](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) consists of people imagining their life in the best and worst way and to rate their present self on a scale from 0-10. **Countries suicide rates of the sexes per 100000 population**  from 2016 was extracted from a [mental health and suicide dataset](https://www.kaggle.com/twinkle0705/mental-health-and-suicide-rates).</p>
+<p>The individual plots are displayed throughout this report to accompany brief summaries and break up chunks of code. The final interactive visualisation can be viewed under the heading *shiny application*. This application will allow the exploration of the data including the countries the data points represent </p>
 
 
+
+
+
+ <iframe 
+ src="https://psyassessment.shinyapps.io/psy6422_assignment/"
+ style="width:100%; height: 1000px"> </iframe> 
 
 ## Data Preperation
 ### Loading In The Data
@@ -34,13 +37,14 @@ library(tidyverse)
 library(here)
 library(countrycode)
 library(data.table)
-library(plotly)
 library(shiny)
 library(ggplot2)
 library(htmlwidgets)
 library(rsconnect)
 library(shinyjs)
 library(shinydashboard)
+library(lemon)
+library(gtable)
 ```
 
 ```{r load in data, warning = FALSE}
@@ -189,7 +193,8 @@ head(df)
 
 # Pre-defined aesthetics
 
-theme_type1 = theme_light(base_size = 15) + theme(legend.background = element_rect(fill = "transparent"))
+theme_type1 = theme_light(base_size = 15) +
+              theme(legend.background = element_rect(fill = "transparent")) 
               
 adjust_writing = theme(plot.caption = element_text(hjust = 0)) +
                  theme(plot.title = element_text(hjust = 0.5))
@@ -251,19 +256,23 @@ plot_wealth <- ggplot(df, aes (x = individualism,
                geom_point(size = 7, alpha = point_alpha3) +
                individualism_gradient +
                theme_type1 +
-               adjust_writing + 
-               theme(legend.position = c(0.3, 0.90),
-                     legend.direction = "horizontal",
-                     legend.box = "horizontal") +
-               guides(shape = legend_labels_adj, 
-                      colour = legend_labels_adj)
+               adjust_writing +
+               guides(colour = guide_colourbar(title.position = "top",
+                                               title.hjust = 0.5,
+                                               barheight = 3,
+                                               barwidth = 20),
+                      shape = legend_labels_adj) +
+               theme(legend.direction  = "horizontal",
+                     legend.box = "vertical") 
+
+
 ```
 
 ```{r graph wealth, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
  
-print(plot_wealth) 
-
+reposition_legend(plot_wealth, 'top left') 
 ```
+As a countries GDP per Capita increases, countries individualism index increases. This demonstrates that individualist cultures tend to have more wealth than collectivist cultures. 
 
 ### Life Expectancy Graph
 ```{r life, warning = FALSE, results= 'hide'}
@@ -290,6 +299,8 @@ plot_life <- ggplot(df, aes(x = individualism,
             theme_type1 +
             guides(size = gdp_sizelegend_adj) +
             adjust_writing
+
+
 ```
 
 ```{r graph life, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
@@ -297,6 +308,8 @@ plot_life <- ggplot(df, aes(x = individualism,
 print(plot_life) 
 
 ```
+
+As expected, individualist countries tend to have a higher life expectancy compared to collectivist countries which appears to be related to the countries wealth. 
 
 ### COVID-19 Rates and Deaths Graph
 ```{r covid, warning = FALSE, results= 'hide'}
@@ -314,7 +327,7 @@ plot_covid <- ggplot(df, aes (x = individualism,
                scale_y_continuous(name="Total COVID-19 Cases
 (per 1 Million Population)",
                                   breaks= seq(0, 155000, 20000)) + 
-               scale_size_continuous(range = c(3, 13), 
+               scale_size_continuous(range = c(3, 18), 
                                      breaks = c(500, 1000, 1500, 2000)) +
                gdp_gradient +
                geom_smooth(method = 'lm', 
@@ -336,7 +349,7 @@ print(plot_covid)
 
 ```
 
-
+The amount of COVID-19 contraction rates are associated with COVID-19 related deaths. Individualist countries tend to have higher COVID-19 rates compared to collectivist countries. Wealthier countries tend to have higher contraction rates of COVID-19. 
 
 ### Happiness Graph
 ```{r happy, warning = FALSE, results= 'hide'}          
@@ -377,6 +390,7 @@ print(plot_happy)
 
 ```
 
+Happiness scores appears to increase in a step wise fashion with happiness scores increasing when countries are considered individualist cultures. This finding suggests that the method used to measure happiness may over fit individualist cultural ideals and perceptions of happiness. The Cantril Ladder requires individuals to imagine the best and worse possible life and rate themselves on a scale of 0-10.  However, people in collectivist cultures have a self-image of "we" opposed to individualist cultures self-image of "I". Therefore, this question is inherently bias and may not reflect peoples happiness with self in collectivist cultures but the goals of the group as a whole. Furthermore, the question is not reflective of subjective happiness as living in *the best possible life* does not necessarily equate to happiness. Best and worse possibilities are embedded in the context of the country thus the perception of potential avenues in life can influence the scores rather than happiness. For instance, individualist cultures could have restrictive perceptions of possibilities thus score higher and collectivist cultures could percieve more possibilities as a group thus score lower on average. 
 
 ### Suicide Rates Graph
 ```{r suicide, warning = FALSE, results= 'hide'}
@@ -414,14 +428,19 @@ plot_suicide <- ggplot(df, aes(x = individualism,
 
 ```
 
+
+
 ```{r graph suicide, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
 
 print(plot_suicide)
 
 ```
 
-### Happiness and Suicide Rate Graph
-```{r happy suicide, warning = FALSE, results= 'hide'}
+As individualism increases, suicide rates increase. Male suicide rates increase more when individualism increases. Suicide rates tend to be lower in poorer countries.
+
+
+### Happiness and Suicide Rates Graph
+```{r happy suicide, warning = FALSE, results= 'hide'}   
 #Happiness and suicide rates
 
 plot_sui_happ <- ggplot(df, aes(y = suicide_rate, 
@@ -445,49 +464,66 @@ plot_sui_happ <- ggplot(df, aes(y = suicide_rate,
                 guides(shape = guide_legend(override.aes = list(size = 7)),
                        size = gdp_sizelegend_adj) + 
                 adjust_writing
-```                  
+```
 
-```{r graph suicide happy, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+```{r suicide happy plot, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
 
 print(plot_sui_happ)
 
 ```
 
+There is no relationship between happiness scores and suicide rates. This indicates that the happiness score reflected by the Cantril Ladder is not representative of countries subjective happiness. 
+
 ### Shiny Application
-``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", eval = FALSE}
+``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", results= 'hide'}
 shinyApp(
   
 ui <- fluidPage(
-    titlePanel("Countries Cultural Orientation, Wealth, and Well-Being"),
-    
-    selectInput("graph", "Choose variables", c("Wealth and Individualism",
+    fluidRow(column(width = 5, 
+                    titlePanel("Countries Cultural Orientation, Wealth, and Well-Being"),
+                    selectInput("graph", "Choose variables", c("Wealth and Individualism",
                                         "Life Expectancy, Individualism and Wealth",
                                         "COVID-19 Cases and Death, Individualism and Wealth", 
                                         "Happiness, Individualism and Wealth",
                                         "Suicide Rates, Sex, Individualism and Wealth",
-                                        "Suicide Rates, Happiness, Individualism and Wealth")),
+                                        "Suicide Rates, Happiness, Individualism and Wealth")))),
 
-conditionalPanel('input.graph=="Wealth and Individualism"', plotOutput("wealth")),
+fluidRow(
+  column(width = 12,
+         conditionalPanel('input.graph=="Wealth and Individualism"', plotOutput("wealth", hover = hoverOpts(id ="hover_wealth")))),
+  column(width = 12,
+         conditionalPanel('input.graph=="Life Expectancy, Individualism and Wealth"', plotOutput("life"))),
+   column(width = 12,
+         conditionalPanel('input.graph=="COVID-19 Cases and Death, Individualism and Wealth"', plotOutput("covid"))),
+  column(width = 12,
+         conditionalPanel('input.graph=="Happiness, Individualism and Wealth"', plotOutput("happy"))),
+  column(width = 12,
+         conditionalPanel('input.graph=="Suicide Rates, Sex, Individualism and Wealth"', plotOutput("suicide"))),
+  column(width = 12,
+         conditionalPanel('input.graph=="Suicide Rates, Happiness, Individualism and Wealth"', plotOutput("sui_happ")))), 
 
-conditionalPanel('input.graph=="Life Expectancy, Individualism and Wealth"', plotOutput("life")),
-
-conditionalPanel('input.graph=="COVID-19 Cases and Death, Individualism and Wealth"', plotOutput("covid")),
-
-conditionalPanel('input.graph=="Happiness, Individualism and Wealth"', plotOutput("happy")),
-
-conditionalPanel('input.graph=="Suicide Rates, Sex, Individualism and Wealth"', plotOutput("suicide")),
-
-conditionalPanel('input.graph=="Suicide Rates, Happiness, Individualism and Wealth"', plotOutput("sui_happ"))
+fluidRow(
+  column(width = 5,
+         verbatimTextOutput("hover_info")
+        ))
 
 ),
 # Functionality
 
-server <- function(input, output){ 
+server <- function(input, output, session){ 
     
     output$wealth <- renderPlot({
         validate(need(input$graph=="Wealth and Individualism", message=FALSE))
-        print(plot_wealth)
+        reposition_legend(plot_wealth, 'top left') 
     })
+
+    output$hover_info <- renderPrint({
+        if(!is.null(input$hover_wealth)){
+          hover <- input$hover_wealth
+          dist <- sqrt((hover$x-df$individualism)^2+(hover$y-df$gdp_per_capita)^2)
+          cat("Country:\n")
+          df$country[which.min(dist)]}
+      })
     
     output$life <- renderPlot({
         validate(need(input$graph=="Life Expectancy, Individualism and Wealth", message=FALSE))
@@ -518,39 +554,26 @@ server <- function(input, output){
   options = list(height = 600)
 )
 
+
 ```
 
 
+``` {r embed shiny, warning = FALSE, fig.height = 10, fig.width = 10, fig.align = "center"}
+knitr::include_app("https://psyassessment.shinyapps.io/psy6422_assignment/", height = "600px")
+```
 
-## Discussion
-### Wealth and Life Expectancy 
-### COVID-19 Cases and Deaths
-### Happiness
-May over fit individualistic countries and ideals and perception of happiness.
+If the shiny application does not load or is not working propery, you can visit the application directly [here](https://psyassessment.shinyapps.io/psy6422_assignment/). You can also visit my [github repository](https://github.com/Ljbailey/psy6422_assignment) to have access to all of the data, the Rmd file and scripts so you can run it locally or even do some further data exploration! 
 
-Bias as inherently asks about the self rather than the collective. As such, the present reflection may not reflect sense of self and happiness in collectivist cultures but the goals of the group as a whole. 
-The best and worse possibilities is also embedded in the context of the country thus having potential avenues in life can influence the score rather than happiness i.e. individualists having restrictive perception of possibilities thus scoring higher, and collectivists perceiving more possibilities through groups thus scoring lower.
-Thus is not reflective of subjective happiness, as even if someone is living the pictured best life does not mean that they are happy.
+## Summary
+indiviualist cultures is associated with wealth. Indeed, has beneficial effects on life expectancy.However, does not give indication about quality of life. covid-19 data showed that individualist cultures tend to have higher covid-19 rates and deaths suggesting poorer compliance to covid-19 guidelines. Happiness did relate to individualist cultures however the pattern in the data indicates bias in method. This was substantiated with the higher suicide rates, particularly for men, in individualist cultures that did not relate to happiness scores. Further exploration and research is required.   
 
-### Suicide Rates and Happiness
 
 ## Caveats and Future Directions
 
+<p>underreported cases?</p>
 
-## Discussion
-### Wealth and Life Expectancy 
-### COVID-19 Cases and Deaths
-### Happiness
-May over fit individualistic countries and ideals and perception of happiness.
+<p>age of data, further data collection required of re-run visualisations</p>
 
-Bias as inherently asks about the self rather than the collective. As such, the present reflection may not reflect sense of self and happiness in collectivist cultures but the goals of the group as a whole. 
-The best and worse possibilities is also embedded in the context of the country thus having potential avenues in life can influence the score rather than happiness i.e. individualists having restrictive perception of possibilities thus scoring higher, and collectivists perceiving more possibilities through groups thus scoring lower.
-Thus is not reflective of subjective happiness, as even if someone is living the pictured best life does not mean that they are happy.
+<p>The relationships between the variables outlined in this project are associative. The scope of this project does not provide the means to test causal relationships. The exploration and visualisation of associations between countries cultural orientation and well-being outcomes hopefully provides a mean and motivation for properly designed experiments to test these hypotheses.</p> 
 
-### Suicide Rates and Happiness
-
-## Caveats and Future Directions
-
-
-
-
+<p>happiness report to re-evaluate appropriateness of measurement of happiness or considering a different definition.</p>
