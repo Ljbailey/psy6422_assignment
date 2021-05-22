@@ -1,7 +1,6 @@
 ---
 Title: " Cultural Orientaion, Well-Being Outcomes and Wealth"
 output: html_document
-runtime: shiny
 ---
 
 # Do Some Cultures Neglect Social Determinants of Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
@@ -12,11 +11,7 @@ runtime: shiny
 <p>A cultural factor that could have an affect on the spread of COVID-19 is the degree to which the members of society perceive themselves as independent vs interdependent in the given society, this is known as the [individualism vs. collectivism continuum](https://www.hofstede-insights.com/country-comparison/). Individuals in individualist cultures primarily care for themselves and immediate family members and have a self-image of “I” whereas individuals in collectivist cultures care for their society as a whole and have a self-image of “we”. The perceptual differences between cultures may explain the inequality of COVID-19 deaths and other health and well-being outcomes. People in collectivist cultures may see themselves as having a broader impact on society thus abides by COVID-19 guidelines and ascribes higher importance to social responsibilities. In contrast, people in individualist cultures may be less likely to follow COVID-19 guidelines and disregard social responsibilities because of their individual interests. Within individualist cultures, [self-reported non-compliance](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0246941) of public health measures often surrounds behaviours that are inconvenient or not beneficial for them such as using contract tracing applications and willingness to take vaccinations.</p>
 <p>This project attempts to initiate discussions and research into cultural factors associated with health outcomes as cross-cultural norms and values can provide insight into favourable attitudes underpinning societal health and well-being and can inform behavioural change interventions. The association of the following country variables will be examined and visualised to understand the broader cultural influence on health: **individualism index**, **GDP per capita**, **life expectancy**, **COVID-19 rates and deaths**, **happiness** and **suicide rates**.</p>  
 
-```{r pressure, echo=FALSE, out.width = '100%', fig.align = 'center'}
-knitr::include_graphics("pic2.jpg")
-```
-
-
+![](pic2.jpg)
 
 ## Data Origin 
 <p>Data was extracted from multiple datasets listed on [Kaggle](https://www.kaggle.com/datasets). The countries [cultural dimensions dataset](https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture) stems from [Hofstede's theory](https://www.hofstede-insights.com/country-comparison/) and data from 2015. The **individualism index** that reflects countries relative position on the collectivist - individualist continuum was extracted. Higher scores represent individualist cultural values whereas lower scores represents collectivist cultural values. Countries **GDP per Capita ($)** was extracted from a dataset consisting of countries [socioeconomic profiles](https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles) as of 2017. A dataset containing [World Health Organisation's data](https://www.kaggle.com/mmattson/who-national-life-expectancy) from 2016 was used to extract countries **life expectancy**. An up-to-date [COVID-19 Dataset](https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv) using [Woldometer's](https://www.worldometers.info/coronavirus/) statistics provided the  **countries total COVID-19 cases and deaths per 1 million population** data. This dataset was retrieved on 2021/05/11. The data from the [2020 World Happiness Report](https://www.kaggle.com/mathurinache/world-happiness-report) was used to extract the **happiness score**. The countries happiness is the average national score on the Cantril Ladder. The [Cantril Ladder](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) consists of people imagining their life in the best and worst way and to rate their present self on a scale from 0-10. **Countries suicide rates of the sexes per 100000 population**  from 2016 was extracted from a [mental health and suicide dataset](https://www.kaggle.com/twinkle0705/mental-health-and-suicide-rates).</p>
@@ -28,7 +23,7 @@ knitr::include_graphics("pic2.jpg")
 
  <iframe 
  src="https://psyassessment.shinyapps.io/psy6422_assignment/"
- style="width:100%; height: 1000px"> </iframe> 
+ style="width:100%; height: 600px"> </iframe> 
 
 ## Data Preperation
 ### Loading In The Data
