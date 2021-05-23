@@ -1,0 +1,51 @@
+The six_dimensions.csv file contains data on countries cultural dimensions according to Hofstede's 
+cultural dimension theory. This dataset was downloaded from https://www.kaggle.com/tarukofusuki/hofstedes-6d-model-of-national-culture.
+The data is from 2015 and requires some formating. The codes represent the following:
+ctr = country code
+country = country
+pdi = power distance index
+idv = individualism - collectivism
+mas = masculinity - femininity 
+uai = uncertainty avoidance
+ltowvs = long-term orientation vs short-term orientation
+ivr = indulgence vs restraint
+Only the individualism - collectivism continuum was used in this project. 
+Higher scores represent individualist cultural values whereas lower scores represents collectivist cultural
+values.Individuals in individualist cultures primarily care for themselves and immediate family members and 
+have a self-image of “I” whereas individuals in collectivist cultures care for their society as a whole 
+and have a self-image of “we”. For more information on the data you can visit https://www.hofstede-insights.com/
+
+
+The soci_econ_country_profiles.csv file contains data of countries socioeconomic profiles as of 2017. This 
+dataset has 95 statistical indicators from 66 countries such as healthcare indicators, social indicators
+and broader economic indicators etc sourced from SRK's Country Statistics - UNData, Numbeo and World Bank.
+More information is provided from https://www.kaggle.com/nishanthsalian/socioeconomic-country-profiles
+where the dataset was retrieved from. The only variable used within this dataset is countries GDP per 
+capita (current US$). GDP per capita is a measure of the countries market value adjusted for the population
+size and is an indicator of living standards across countries.
+
+The who_life_exp.csv file contains information about countries national life expectancy and factors 
+influencing life expectancy such as alcohol consumption and bmi. This data is from 2016 and originates from
+the World Health Organisation but the dataset was downloaded from https://www.kaggle.com/mmattson/who-national-life-expectancy. 
+Only the average life expectancy in years was used out of the dataset which is represented by life_expect.
+
+The worldometer_coronavirus_summary_data.csv file contains information about COVID-19 rates, deaths and
+tests statistics from Worldometer. This dataset was downloaded from https://www.kaggle.com/josephassaker/covid19-global-dataset?select=worldometer_coronavirus_summary_data.csv
+they tend to update the information regularly. The current dataset was downloaded on 2021-05-11. Two 
+variables were used in this datasets total_cases_per_1m_population and total_deaths_per_1m_population. 
+total_cases_per_1m_population is the the number of total cases per 1 million population in the 
+observed country. total_deaths_per_1m_population is the number of total deaths per 1 million population in 
+the observed country. 
+
+The world_happiness_report.csv file contains data from the World Happiness report 2020. The dataset 
+contains factors that explains the average happiness score in countries including social support and 
+corruption perception. Only the countries average happiness score was used in this project which is coded 
+in the file as score. The happiness score is generated from using the Cantril Ladder asked in the Gallup 
+World Poll (GWP). This involves the participants to imagine the best and worst possible life and rate their
+current life on a scale of 0-10. This dataset was downloaded from https://www.kaggle.com/mathurinache/world-happiness-report.
+
+The suicide_rate.csv file was downloaded from https://www.kaggle.com/twinkle0705/mental-health-and-suicide-rates
+This dataset contains suicide rates standardised by age in countries from 2000-2016 of males, females and
+both sexes. The suicide rates are per 100000 population. Only data from 2016 was used in this project. 
+
+
