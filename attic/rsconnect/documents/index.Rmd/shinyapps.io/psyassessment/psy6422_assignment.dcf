@@ -1,0 +1,13 @@
+name: psy6422_assignment
+title: psy6422_assignment
+username:
+account: psyassessment
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4153051
+bundleId: 4620920
+url: https://psyassessment.shinyapps.io/psy6422_assignment/
+when: 1621528048.87156
+lastSyncTime: 1621528048.87156
+asMultiple: FALSE
+asStatic: FALSE
