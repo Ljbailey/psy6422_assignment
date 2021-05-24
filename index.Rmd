@@ -1,7 +1,6 @@
 ---
 Title: " Cultural Orientaion, Well-Being Outcomes and Wealth"
 output: html_document
-
 ---
 
 # Do Some Cultures Neglect Social Determinants of Health and Well-Being? A Visualisation of Countries Cultural Orientation, Well-Being Outcomes and Wealth.
@@ -38,7 +37,7 @@ library(gtable)
 ```{r load in data, warning = FALSE}
 # Loading in the different datasets
 
-dim <- read.csv(here("data", "six_dimenstions.csv"))
+dim <- read.csv(here("data", "six_dimensions.csv"))
 
 ses <- read.csv(here("data", "soci_econ_country_profiles.csv"))
 
@@ -300,7 +299,7 @@ print(plot_life)
 
 ```
 
-As expected, individualist countries tend to have a higher life expectancy compared to collectivist countries which appears to be related to the countries wealth. 
+As expected, individualist countries tend to have a higher life expectancy compared to collectivist countries which appears to be related to the countries wealth. Higher life expectancy in wealthier countries may stem from having more health resources. 
 
 ### COVID-19 Cases and Deaths Graph
 ```{r covid, warning = FALSE, results= 'hide'}
@@ -755,15 +754,9 @@ knitr::include_app("https://psyassessment.shinyapps.io/psy6422_assignment/", hei
 If the shiny application does not load or is not working properly, you can visit the application directly [here](https://psyassessment.shinyapps.io/psy6422_assignment/). You can also visit my [github repository](https://github.com/Ljbailey/psy6422_assignment) to have access to all of the data, the Rmd file and scripts so you can run it locally or even do some further data exploration! 
 
 ## Summary
-indiviualist cultures is associated with wealth. Indeed, has beneficial effects on life expectancy.However, does not give indication about quality of life. covid-19 data showed that individualist cultures tend to have higher covid-19 rates and deaths suggesting poorer compliance to covid-19 guidelines. Happiness did relate to individualist cultures however the pattern in the data indicates bias in method. This was substantiated with the higher suicide rates, particularly for men, in individualist cultures that did not relate to happiness scores. Further exploration and research is required.   
+Overall this visualisation demonstrates that some aspects of peoples health and well-being do not solely rely on countries economic prosperity. Cultural norms, attitudes and perceptions common in wealthy countries, such as individualism, may have a negative impact on social determinants of health and well-being. Indeed, countries individualism index is related to wealth and these were associated with higher life expectancy. This relationship can be attributed to an increase in health resources, however, this data does not give any indication of social determinants of health or peoples quality of life. Exploring COVID-19 data revealed that individualistic countries have higher COVID-19 contraction rates suggesting that individualist values may indicate poor compliance to World Health Organisation's COVID-19 guidelines. Accordingly, individualist cultural values may hinder peoples sense of social responsibility that can in turn have detrimental affects on the health and well-being of people within the country. Countries happiness scores did relate to individualist countries however, happiness scores only increased in individualistic countries. This pattern in the data indicates that the happiness measurement tool is bias and over fits individualist ideals of happiness. This interpretation is substantiated with higher suicide rates, particularly for men, in individualist cultures that did not relate to happiness scores. Further data exploration and research is warranted to systematically investigate cultural factors influence on health and well-being.   
 
 
 ## Caveats and Future Directions
 
-<p>underreported cases?</p>
-
-<p>age of data, further data collection required of re-run visualisations</p>
-
-<p>The relationships between the variables outlined in this project are associative. The scope of this project does not provide the means to test causal relationships. The exploration and visualisation of associations between countries cultural orientation and well-being outcomes hopefully provides a mean and motivation for properly designed experiments to test these hypotheses.</p> 
-
-<p>happiness report to re-evaluate appropriateness of measurement of happiness or considering a different definition.</p>
+Non-random missing data in these datasets could have biased the outcome of the visualisations. For instance, COVID-19 cases and deaths and suicide rates could be systematically under reported in poorer countries due to fewer resources. However, the relationship between these reports in wealthier countries is variable suggesting that the fluctuations in reports are not necessarily tied to resources and that missing data would not change the direction of the relationship. The age of some data used in this project is not up-to-date. Limited contempary data was available that was sufficient to answer the proposed research question. Further research should focus on collecting data for further exploration to determine if these trends still remain. It is important to note that the relationship between variables in this visualation are associative. The aim of this project was not to test causal relationships but to explore and visualise relationships as a means to uncover trends.The exploration and visualisation of associations between countries cultural orientation and well-being outcomes hopefully provides a mean and motivation for properly designed experiments to test these hypotheses. In light of the relationship between individualism and the happiness score, [Gallup's research intiatives](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) and the [World Happiness Report](https://worldhappiness.report/) may wish to re-evaluate the psychometric properties of the Cantril ladder including its generalisability to different cultures and its validity in measuring and representing happiness.   
