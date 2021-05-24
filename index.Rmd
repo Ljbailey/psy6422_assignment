@@ -30,7 +30,6 @@ library(htmlwidgets)
 library(rsconnect)
 library(shinyjs)
 library(shinydashboard)
-library(lemon)
 library(gtable)
 ```
 
@@ -180,47 +179,44 @@ head(df)
 
 # Pre-defined aesthetics
 
-theme_type1 = theme_light(base_size = 15) +
-              theme(legend.background = element_rect(fill = "transparent")) 
-              
-adjust_writing = theme(plot.caption = element_text(hjust = 0)) +
-                 theme(plot.title = element_text(hjust = 0.5))
+theme <- theme_light(base_size = 15) + # theme type and size
+              theme(legend.background = element_rect(fill = "transparent"), 
+                    plot.caption = element_text(hjust = 0), # position of writing
+                    plot.title = element_text(hjust = 0.5))
 
-line_alpha = 0.1
+line_alpha <- 0.1  # transparency of line standard error
 
-point_alpha3 = 0.2
+point_alpha <- 0.2 # transparency of points
 
-individualism_xscale = scale_x_continuous(name="Individualism Index", 
+individualism_xscale <- scale_x_continuous(name="Individualism Index", 
                                           breaks= seq(0, 100, 10)) 
 
-
-suicide_yscale =  scale_y_continuous(name="Suicide Rate
+suicide_yscale <-  scale_y_continuous(name="Suicide Rate
 (per 100000 Population)",
                                      breaks= seq(0, 50, 5))
 
-individualism_gradient = scale_colour_gradient(low = "blue", 
+individualism_gradient <- scale_colour_gradient(low = "blue", 
                                                high = "orange")
 
-gdp_gradient = scale_colour_gradient2(low = "magenta2",
+gdp_gradient <- scale_colour_gradient2(low = "magenta2",
                                       mid = "yellow2",
                                       high = "springgreen2",
-                                      midpoint = 17675,
+                                      midpoint = 17675, #specify midpoint colour as median GDP per Capita
                                       breaks = seq(20000, 80000, by = 20000))
                                       
-gdp_size_scale = scale_size_continuous(range = c(3, 15))
+gdp_size_scale <- scale_size_continuous(range = c(3, 15)) # size range of points
                                        
+line_colour <- "firebrick2"
 
-line_colour = "firebrick2"
+sex_colour_aes <- c("#5899DA", "#945ECF", "#19A979")
 
-sex_colour_aes = c("#5899DA", "#945ECF", "#19A979")
-
-gdp_sizelegend_adj = guide_legend(reverse = TRUE,
+sizelegend_adj <- guide_legend(reverse = TRUE, #change legend key order
                                   override.aes =list(linetype = c(0,0,0,0),
-                                                     fill = NA))
+                                                     fill = NA)) # removes unwanted key aesthetics
                                   
 legend_labels_adj <- guide_legend(title.position = "top",
                                   title.hjust = 0.5)
-                                  
+                       
 ```
 
 ### GDP per Capita Graph
@@ -228,7 +224,7 @@ legend_labels_adj <- guide_legend(title.position = "top",
 # Country Wealth Plot
 plot_wealth <- ggplot(df, aes (x = individualism, 
                                y = gdp_per_capita, 
-                               shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"),
+                               shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"), # specifying shape difference for scores above 50
                                color = individualism)) +
                ggtitle("Countries GDP per Capita and Cultural Orientation") +
                labs(color = "Individualism Index", 
@@ -236,31 +232,34 @@ plot_wealth <- ggplot(df, aes (x = individualism,
                individualism_xscale +
                scale_y_continuous(name="GDP per Capita ($)",
                                   breaks= seq(0, 80000, 10000)) +
-               geom_smooth((aes(shape=NA)), 
+               geom_point(size = 7, alpha = point_alpha) +
+               geom_smooth((aes(shape=NA)),  # ignores shape variable creating one line
                             method = 'lm', 
                             color = "darkgreen", 
                             alpha = line_alpha) +
-               geom_point(size = 7, alpha = point_alpha3) +
                individualism_gradient +
-               theme_type1 +
-               adjust_writing +
+               theme +
                guides(colour = guide_colourbar(title.position = "top",
-                                               title.hjust = 0.5),
-                      shape = legend_labels_adj) +
-               theme(legend.direction  = "horizontal",
-                     legend.box = "vertical") 
-
+                                               title.hjust = 0.5,
+                                               direction = "horizontal",
+                                               boxheight = 1,
+                                               barwidth = 15),
+                      shape = guide_legend(title.position = "top",
+                                           title.hjust = 0.5,
+                                           override.aes = list(size = 5))) +
+               theme(legend.direction  = "vertical",
+                     legend.box = "horizontal",
+                     legend.justification = c(0, 1),
+                     legend.position = c(0, 1),
+                     legend.title = element_text(size = 9), 
+                     legend.text = element_text(size = 9))
 
 ```
 
-barheight = 3,
-barwidth = 20
-
-
-
 ```{r graph wealth, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
- 
-reposition_legend(plot_wealth, 'top left') 
+
+print(plot_wealth)
+
 ```
 As a countries GDP per Capita increases, countries individualism index increases. This demonstrates that individualist cultures tend to have more wealth than collectivist cultures. 
 
@@ -280,18 +279,30 @@ plot_life <- ggplot(df, aes(x = individualism,
             scale_y_continuous(name = "Life Expectancy 
 (years)", 
                                breaks= seq(0, 100, 2)) +
-            gdp_gradient +
-            gdp_size_scale +
+            geom_point(alpha = point_alpha) +
             geom_smooth(method = 'lm',
                         color = line_colour, 
                         alpha = line_alpha) +
-            geom_point(alpha = point_alpha3) +
-            theme_type1 +
-            guides(size = gdp_sizelegend_adj) +
-            adjust_writing
-
-
+            gdp_gradient +
+            gdp_size_scale +
+            theme +
+            guides(size = guide_legend(reverse = TRUE,
+                                       override.aes =list(linetype = c(0,0,0,0),
+                                                     size = c(5,4,3,2),
+                                                     fill = NA)),
+                   colour = guide_colourbar(title.position = "top",
+                                            direction = "horizontal",
+                                            title.hjust = 0.5,
+                                            boxheight = 1,
+                                            barwidth = 15)) +
+            theme(legend.direction  = "vertical",
+                     legend.box = "horizontal",
+                     legend.justification = c(1, 0),
+                     legend.position = c(1, 0),
+                     legend.title = element_text(size = 9), 
+                     legend.text = element_text(size = 9))
 ```
+
 
 ```{r graph life, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
  
@@ -317,21 +328,36 @@ plot_covid <- ggplot(df, aes (x = individualism,
                scale_y_continuous(name="Total COVID-19 Cases
 (per 1 Million Population)",
                                   breaks= seq(0, 155000, 20000)) + 
-               scale_size_continuous(range = c(3, 18), 
-                                     breaks = c(500, 1000, 1500, 2000)) +
-               gdp_gradient +
+               geom_point(alpha = point_alpha) +
                geom_smooth(method = 'lm', 
                            color = line_colour, 
                            alpha = line_alpha) +
-               geom_point(alpha = point_alpha3) +
-               theme_type1 +
-               guides(size = guide_legend(override.aes =list(linetype = c(0,0,0,0),
-                                                             fill = NA),
-                                          
-                                          reverse =  TRUE)) +
-               adjust_writing
+  
+               scale_size_continuous(range = c(3, 18), 
+                                     breaks = c(500, 1000, 1500, 2000)) +
+               gdp_gradient +
+               theme +
+               guides(size = guide_legend(order = 2,  
+                                          label.position = "right",
+                                          title.position = "top",
+                                          direction = "vertical",
+                                          override.aes =list(linetype = c(0,0,0,0),
+                                                             size = c(2,3,4,5),
+                                                             fill = NA)),
+                      colour = guide_colourbar(order = 1,
+                                               title.position = "top",
+                                               title.hjust = 0.5,
+                                               boxheight = 1,
+                                               barwidth = 15)) +
+               theme(legend.direction  = "horizontal",
+                     legend.box = "vertical",
+                     legend.justification = c(0, 1),
+                     legend.position = c(0, 1),
+                     legend.title = element_text(size = 9), 
+                     legend.text = element_text(size = 9))
 
 ```
+
 
 ```{r graph covid, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
 
@@ -360,19 +386,39 @@ plot_happy <- ggplot(df, aes(x = individualism,
               individualism_xscale + 
               scale_y_continuous(name = "Happiness Score",
                                  breaks = seq(0, 10, 0.5))  +
-              gdp_size_scale +
+              geom_point(alpha = point_alpha) + 
               geom_smooth((aes(colour = NA,
                                shape = NA)), 
                             color = line_colour, 
                             alpha = line_alpha) +
-              geom_point(alpha = point_alpha3) + 
-              theme_type1 +
-              guides(size = gdp_sizelegend_adj,
-                     shape =  guide_legend(override.aes = list(size = 7)))  + 
-              adjust_writing +
-              gdp_gradient
-
+              gdp_size_scale +
+              gdp_gradient +
+              theme +
+              guides(size = guide_legend(order = 2, 
+                                         title.position = "top",
+                                         label.position = "bottom",
+                                         title.hjust = 0.5,
+                                         override.aes =list(linetype = c(0,0,0,0),
+                                                            fill = NA,
+                                                            size = c(2,3,4,5))),
+                     shape =  guide_legend(order = 1,
+                                           direction = "vertical",
+                                           title.position = "top",
+                                           title.hjust = 0.5,
+                                           override.aes = list(size = 5)),
+                     colour = guide_colourbar(order =3,
+                                              title.position = "top",
+                                              title.hjust = 0.5,
+                                              boxheight = 1,
+                                              barwidth = 10)) +
+               theme(legend.direction  = "horizontal",
+                     legend.box = "horizontal",
+                     legend.justification = c(1, 0),
+                     legend.position = c(1, 0),
+                     legend.title = element_text(size = 9), 
+                     legend.text = element_text(size = 9))
 ```
+
 
 ```{r graph happy, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
 
@@ -399,26 +445,39 @@ plot_suicide <- ggplot(df, aes(x = individualism,
                      caption = "* Suicide rates reported in 2016 and are standardised by age") +
                 individualism_xscale + 
                 suicide_yscale +
-                gdp_size_scale +
+                geom_point(alpha = point_alpha) +
                 geom_smooth(method = 'lm', 
                             alpha = line_alpha, 
                             aes(linetype = sex,
-                                fill = sex)) +
-                geom_point(alpha = point_alpha3) +  
-                theme_type1 +
-                scale_linetype_manual(values = c("dashed", "solid", "solid")) +
-                scale_color_manual(values = sex_colour_aes) +
-                scale_fill_manual(values = sex_colour_aes)  +
-                guides(size = gdp_sizelegend_adj,   
-                       shape =  guide_legend(override.aes = list(size = 7, 
+                                fill = sex)) +  
+                gdp_size_scale +
+                scale_linetype_manual(values = c("dashed", "solid", "solid")) + 
+                scale_color_manual(values = sex_colour_aes) + # change line colour
+                scale_fill_manual(values = sex_colour_aes)  + # change standard error colour
+                theme +
+                guides(size = guide_legend(title.position = "top",
+                                           label.position = "bottom",
+                                           title.hjust = 0.5,
+                                           direction = "horizontal",
+                                           override.aes =list(linetype = c(0,0,0,0),
+                                                              fill = NA,
+                                                              size = c(2,3,4,5))),   
+                       shape =  guide_legend(title.position = "top",
+                                             title.hjust = 0.5,
+                                             override.aes = list(size = 5, 
                                                                  linetype = c(0,0,0),
-                                                                 fill = NA)), 
+                                                                 fill = NA)),
+                       linetype = guide_legend(title.position = "top",
+                                               title.hjust = 0.5), # make same as shape so legends merge
                        fill = FALSE) +
-                adjust_writing
+               theme(legend.direction  = "vertical",
+                     legend.box = "horizontal",
+                     legend.justification = c(1, 1),
+                     legend.position = c(1, 1),
+                     legend.title = element_text(size = 10), 
+                     legend.text = element_text(size = 10))
 
 ```
-
-
 
 ```{r graph suicide, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
 
@@ -433,11 +492,12 @@ As individualism increases, suicide rates increase. Male suicide rates increase 
 ```{r happy suicide, warning = FALSE, results= 'hide'}   
 #Happiness and suicide rates
 
-plot_sui_happ <- ggplot(df, aes(y = suicide_rate, 
-                                x = happiness_score,
-                                size = gdp_per_capita,
-                                color = individualism,
-                                shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
+plot_sui_happ <- ggplot(subset(df, sex == " Both sexes"), #subset data
+                        aes(y = suicide_rate, 
+                            x = happiness_score,
+                            size = gdp_per_capita,
+                            color = individualism,
+                            shape = ifelse(individualism < 50, "Collectivistic Cultures", "Individualistic Cultures"))) + 
                 ggtitle("Suicide Rates according to Countries Happiness, Wealth and Cultural Orientation") +
                 labs(shape = "Cultural Orientation",
                      color = "Individualism Index", 
@@ -447,13 +507,32 @@ plot_sui_happ <- ggplot(df, aes(y = suicide_rate,
                 scale_x_continuous(name="Happiness Score",
                                    breaks= seq(0, 10, 0.5)) +
                 suicide_yscale +
+                geom_point(alpha = point_alpha) +
                 gdp_size_scale +
                 individualism_gradient +
-                geom_point(alpha = point_alpha3) + 
-                theme_type1 +
-                guides(shape = guide_legend(override.aes = list(size = 7)),
-                       size = gdp_sizelegend_adj) + 
-                adjust_writing
+                theme +
+                guides(shape = guide_legend(order = 2, 
+                                            title.position = "top",
+                                            title.hjust = 0.5, 
+                                            override.aes = list(size = 5)),
+                       colour = guide_colourbar(order = 1, 
+                                                title.position = "top",
+                                                title.hjust = 0.5,
+                                                boxheight = 1,
+                                                barwidth = 15),
+                       size = guide_legend(order = 3,
+                                           title.position = "top",
+                                           label.position = "bottom",
+                                           title.hjust = 0.5, 
+                                           override.aes =list(linetype = c(0,0,0,0),
+                                                              size = c(2,3,4,5),
+                                                               fill = NA))) +
+                theme(legend.direction  = "horizontal",
+                      legend.box = "vertical",
+                      legend.justification = c(0, 1),
+                      legend.position = c(0, 1),
+                      legend.title = element_text(size = 9), 
+                      legend.text = element_text(size = 9))
 ```
 
 ```{r suicide happy plot, warning = FALSE, echo = FALSE, message = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
@@ -465,10 +544,11 @@ print(plot_sui_happ)
 There is no relationship between happiness scores and suicide rates. This indicates that the happiness score reflected by the Cantril Ladder is not representative of countries subjective happiness. 
 
 ### Shiny Application
-``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", echo = FALSE, results= 'hide'}
 
 
 shinyApp(
+# User interface
 ui <- fluidPage(
     fluidRow(column(width = 5, 
                     titlePanel("Countries Cultural Orientation, Wealth, and Well-Being"),
@@ -480,6 +560,7 @@ ui <- fluidPage(
                                         "Suicide Rates, Happiness, Individualism and Wealth")))),
 
 fluidRow(
+#Each drop down box option and conditional specified output
   column(width = 12,
          conditionalPanel('input.graph=="Wealth and Individualism"',
                           plotOutput("wealth", 
@@ -532,7 +613,9 @@ fluidRow(
 # Functionality
 
 server <- function(input, output, session){ 
-    
+
+#plot and hover output  specified for each drop down box and graph
+      
     output$wealth <- renderPlot({
         validate(need(input$graph=="Wealth and Individualism", message=FALSE))
         plot_wealth
@@ -543,19 +626,15 @@ server <- function(input, output, session){
     point_wealth <- nearPoints(df, hover_wealth, xvar = "individualism", yvar = "gdp_per_capita", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_wealth) == 0) return(NULL)
 
-    
-    # calculate distance from left and bottom side of the picture in pixels
+# distance from left and bottom side
     left_px <- hover_wealth$coords_css$x
     top_px <- hover_wealth$coords_css$y
 
-    
-    # create style property fot tooltip
-    # background color is set so tooltip is a bit transparent
-    # z-index is set so we are sure are tooltip will be on top
+# background color set to transparent and z-index so tooltip is on top
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
     
-    # actual tooltip created as wellPanel
+# creating tooltip
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_wealth$country, "<br/>",
@@ -567,7 +646,6 @@ server <- function(input, output, session){
     )
   })
 
-    
     output$life <- renderPlot({
         validate(need(input$graph=="Life Expectancy, Individualism and Wealth", message=FALSE))
         plot_life
@@ -578,13 +656,12 @@ server <- function(input, output, session){
     point_life <- nearPoints(df, hover_life, xvar = "individualism", yvar = "life_expectancy", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_life) == 0) return(NULL)
     
-    # calculate distance from left and bottom side of the picture in pixels
     left_px <- hover_life$coords_css$x
     top_px <- hover_life$coords_css$y
 
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
-    # actual tooltip created as wellPanel
+
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_life$country, "<br/>",
@@ -607,13 +684,12 @@ server <- function(input, output, session){
     point_covid <- nearPoints(df, hover_covid, xvar = "individualism", yvar = "total_cases", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_covid) == 0) return(NULL)
     
-    # calculate distance from left and bottom side of the picture in pixels
     left_px <- hover_covid$coords_css$x
     top_px <- hover_covid$coords_css$y
 
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
-    # actual tooltip created as wellPanel
+   
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_covid$country, "<br/>",
@@ -637,13 +713,12 @@ server <- function(input, output, session){
     point_happy <- nearPoints(df, hover_happy, xvar = "individualism", yvar = "happiness_score", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_happy) == 0) return(NULL)
     
-    # calculate distance from left and bottom side of the picture in pixels
     left_px <- hover_happy$coords_css$x
     top_px <- hover_happy$coords_css$y
 
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
-    # actual tooltip created as wellPanel
+    
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_happy$country, "<br/>",
@@ -655,10 +730,7 @@ server <- function(input, output, session){
                       )))
     )
   }) 
-     
-     
-     
-     
+    
      output$suicide <- renderPlot({
         validate(need(input$graph=="Suicide Rates, Sex, Individualism and Wealth", message=FALSE))
         plot_suicide
@@ -669,13 +741,12 @@ server <- function(input, output, session){
     point_suicide <- nearPoints(df, hover_suicide, xvar = "individualism", yvar = "suicide_rate", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_suicide) == 0) return(NULL)
     
-    # calculate distance from left and bottom side of the picture in pixels
     left_px <- hover_suicide$coords_css$x
     top_px <- hover_suicide$coords_css$y
 
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
-    # actual tooltip created as wellPanel
+    
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_suicide$country, "<br/>",
@@ -689,27 +760,22 @@ server <- function(input, output, session){
     )
   })  
      
-     
-     
-     
       output$sui_happ <- renderPlot({
         validate(need(input$graph=="Suicide Rates, Happiness, Individualism and Wealth", message=FALSE))
         plot_sui_happ
     }) 
-      
       
        output$hover_sui_happ_info <- renderUI({
     hover_sui_happ <- input$hover_sui_happ
     point_sui_happ <- nearPoints(df, hover_sui_happ, xvar = "happiness_score", yvar = "suicide_rate", threshold = 5, maxpoints = 1, addDist = TRUE) 
     if (nrow(point_sui_happ) == 0) return(NULL)
     
-    # calculate distance from left and bottom side of the picture in pixels
     left_px <- hover_sui_happ$coords_css$x
     top_px <- hover_sui_happ$coords_css$y
 
     style <- paste0("position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); ",
                     "left:", left_px + 2, "px; top:", top_px + 2, "px;")
-    # actual tooltip created as wellPanel
+   
     wellPanel(
       style = style,
       p(HTML(paste0("<b> Country: </b>", point_sui_happ$country, "<br/>",
@@ -723,40 +789,25 @@ server <- function(input, output, session){
     )
   })  
      
-      
-      
-  
 },
-  options = list(height = 1000)
+  options = list(height = 700)
 
 )
 
-
-
 ```
 
- output$hover_info <- renderPrint({
-        if(!is.null(input$hover_wealth)){
-          hover <- input$hover_wealth
-          dist <- sqrt((hover$x-df$individualism)^2+(hover$y-df$gdp_per_capita)^2)
-          cat("Country:\n")
-          df$country[which.min(dist)]}
-      })
-    
-fluidRow(
-  column(width = 5,
-         verbatimTextOutput("hover_info")
-        ))
-``` {r embed shiny, warning = FALSE, fig.height = 10, fig.width = 10, fig.align = "center"}
-knitr::include_app("https://psyassessment.shinyapps.io/psy6422_assignment/", height = "600px")
-```
 
-If the shiny application does not load or is not working properly, you can visit the application directly [here](https://psyassessment.shinyapps.io/psy6422_assignment/). You can also visit my [github repository](https://github.com/Ljbailey/psy6422_assignment) to have access to all of the data, the Rmd file and scripts so you can run it locally or even do some further data exploration! 
+<iframe src ="https://psyassessment.shinyapps.io/psy6422_assignment/"
+  scrolling = "no" style="border: none; overflow:hidden; width: 100%; height: 700px;"/>
+</iframe>
+
+You can hover over the data points to see which countries they represent and the relevant information. If the shiny application does not load or is not working properly, you can visit the application directly [here](https://psyassessment.shinyapps.io/psy6422_assignment/). You can also visit my [github repository](https://github.com/Ljbailey/psy6422_assignment) to have access to all of the data, the Rmd file and scripts so you can run it locally or even do some further data exploration! 
+
 
 ## Summary
-Overall this visualisation demonstrates that some aspects of peoples health and well-being do not solely rely on countries economic prosperity. Cultural norms, attitudes and perceptions common in wealthy countries, such as individualism, may have a negative impact on social determinants of health and well-being. Indeed, countries individualism index is related to wealth and these were associated with higher life expectancy. This relationship can be attributed to an increase in health resources, however, this data does not give any indication of social determinants of health or peoples quality of life. Exploring COVID-19 data revealed that individualistic countries have higher COVID-19 contraction rates suggesting that individualist values may indicate poor compliance to World Health Organisation's COVID-19 guidelines. Accordingly, individualist cultural values may hinder peoples sense of social responsibility that can in turn have detrimental affects on the health and well-being of people within the country. Countries happiness scores did relate to individualist countries however, happiness scores only increased in individualistic countries. This pattern in the data indicates that the happiness measurement tool is bias and over fits individualist ideals of happiness. This interpretation is substantiated with higher suicide rates, particularly for men, in individualist cultures that did not relate to happiness scores. Further data exploration and research is warranted to systematically investigate cultural factors influence on health and well-being.   
+Overall this visualisation demonstrates that some aspects of peoples health and well-being do not solely rely on countries economic prosperity. Cultural norms, attitudes and perceptions common in wealthy countries, such as individualism, may have a negative impact on social determinants of health and well-being. Indeed, countries individualism index is related to wealth and these were associated with higher life expectancy. This relationship can be attributed to an increase in health resources, however, this data does not give any indication of social determinants of health or peoples quality of life. Exploring COVID-19 data revealed that individualistic countries have higher COVID-19 contraction rates suggesting that individualist values may indicate poor compliance to World Health Organisation's [COVID-19 guidelines](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public). Accordingly, individualist cultural values may hinder peoples sense of social responsibility that can in turn have detrimental affects on the health and well-being of people within the country. Countries happiness scores did relate to individualist countries however, happiness scores only increased in individualistic countries. This pattern in the data indicates that the happiness measurement tool is bias and over fits individualist ideals of happiness. This interpretation is substantiated with higher suicide rates, particularly for men, in individualist cultures that did not relate to happiness scores. Further data exploration and research is warranted to systematically investigate cultural factors influence on health and well-being.   
 
 
 ## Caveats and Future Directions
 
-Non-random missing data in these datasets could have biased the outcome of the visualisations. For instance, COVID-19 cases and deaths and suicide rates could be systematically under reported in poorer countries due to fewer resources. However, the relationship between these reports in wealthier countries is variable suggesting that the fluctuations in reports are not necessarily tied to resources and that missing data would not change the direction of the relationship. The age of some data used in this project is not up-to-date. Limited contempary data was available that was sufficient to answer the proposed research question. Further research should focus on collecting data for further exploration to determine if these trends still remain. It is important to note that the relationship between variables in this visualation are associative. The aim of this project was not to test causal relationships but to explore and visualise relationships as a means to uncover trends.The exploration and visualisation of associations between countries cultural orientation and well-being outcomes hopefully provides a mean and motivation for properly designed experiments to test these hypotheses. In light of the relationship between individualism and the happiness score, [Gallup's research intiatives](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) and the [World Happiness Report](https://worldhappiness.report/) may wish to re-evaluate the psychometric properties of the Cantril ladder including its generalisability to different cultures and its validity in measuring and representing happiness.   
+Non-random missing data in these datasets could have biased the outcome of the visualisations. For instance, COVID-19 cases and deaths and suicide rates could be systematically under reported in poorer countries due to fewer resources. However, the relationship between these reports in wealthier countries is variable suggesting that the fluctuations in reports are not necessarily tied to resources and that missing data would not change the direction of the relationship. The age of some data used in this project is not up-to-date. Limited contemporary data was available that was sufficient to answer the proposed research question. Further research should focus on collecting data for further exploration to determine if these trends still remain. It is important to note that the relationship between variables in this visualisation are associative. The aim of this project was not to test causal relationships but to explore and visualise relationships as a means to uncover trends.The exploration and visualisation of associations between countries cultural orientation and well-being outcomes hopefully provides a mean and motivation for properly designed experiments to test these hypotheses. In light of the relationship between individualism and the happiness score, [Gallup's research intiatives](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) and the [World Happiness Report](https://worldhappiness.report/) may wish to re-evaluate the psychometric properties of the Cantril ladder including its generalisability to different cultures and its validity in measuring and representing happiness.   
