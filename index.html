@@ -682,7 +682,253 @@ plot_sui_happ &lt;- ggplot(subset(df, sex == &quot; Both sexes&quot;), #subset d
 </div>
 <div id="shiny-application" class="section level3">
 <h3>Shiny Application</h3>
-<iframe src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%3Cbase%20href%3D%22%5Fw%5F64f094ad%2F%22%3E%0A%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%28function%28%29%20%7B%0A%20%20var%20workerId%20%3D%20%27%5Fw%5F64f094ad%27%3B%0A%20%20%2F%2F%20remove%20base%20href%20if%20worker%20ID%20is%20in%20url%0A%20%20if%20%28window%2Elocation%2Ehref%2EindexOf%28workerId%29%20%3E%200%29%20%7B%0A%20%20%20%20document%2EquerySelector%28%27base%27%29%2EremoveAttribute%28%27href%27%29%3B%0A%20%20%7D%0A%7D%29%28%29%3B%0A%3C%2Fscript%3E%0A%0A%20%20%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%20%20%20%20%20%20var%20%5F%5Fconnect%20%3D%20%7B%0A%20%20%20%20%20%20%20%20shinyPre101%3A%20false%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%3C%2Fscript%3E%0A%20%20%20%20%20%20%0A%20%20%3Cmeta%20http%2Dequiv%3D%22Content%2DType%22%20content%3D%22text%2Fhtml%3B%20charset%3Dutf%2D8%22%2F%3E%0A%20%20%3Cscript%20type%3D%22application%2Fshiny%2Dsingletons%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20type%3D%22application%2Fhtml%2Ddependencies%22%3Ejquery%5B3%2E5%2E1%5D%3Bshiny%2Dcss%5B1%2E6%2E0%5D%3Bshiny%2Djavascript%5B1%2E6%2E0%5D%3Bselectize%5B0%2E12%2E4%5D%3Bbootstrap%5B3%2E4%2E1%5D%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fjquery%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fshiny%2Emin%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fshiny%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fselectize%2Fcss%2Fselectize%2Ebootstrap3%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Fjs%2Fselectize%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Faccessibility%2Fjs%2Fselectize%2Dplugin%2Da11y%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice%2Dwidth%2C%20initial%2Dscale%3D1%22%20%2F%3E%0A%3Clink%20href%3D%22shared%2Fbootstrap%2Fcss%2Fbootstrap%2Emin%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Clink%20href%3D%22shared%2Fbootstrap%2Faccessibility%2Fcss%2Fbootstrap%2Daccessibility%2Emin%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fjs%2Fbootstrap%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Faccessibility%2Fjs%2Fbootstrap%2Daccessibility%2Emin%2Ejs%22%3E%3C%2Fscript%3E%20%20%3Ctitle%3ECountries%20Cultural%20Orientation%2C%20Wealth%2C%20and%20Well%2DBeing%3C%2Ftitle%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fsockjs%2D0%2E3%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fshiny%2Dserver%2Dclient%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%3EpreShinyInit%28%7Breconnect%3Atrue%2CreconnectTimeout%3A15000%2CdisableProtocols%3A%5B%22xdr%2Dstreaming%22%2C%22xdr%2Dpolling%22%2C%22websocket%22%5D%2CtransportDebugging%3Afalse%2Ctoken%3Atrue%2CworkerId%3Atrue%2CsubappTag%3Atrue%2CextendSession%3Atrue%2CfixupInternalLinks%3Atrue%7D%29%3B%3C%2Fscript%3E%0A%3Clink%20rel%3D%22stylesheet%22%20type%3D%22text%2Fcss%22%20href%3D%22%5F%5Fassets%5F%5F%2Frstudio%2Dconnect%2Ecss%22%2F%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fiframe%2Dresizer%2Fjs%2FiframeResizer%2EcontentWindow%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Eframe%2Econtent%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Ejs%22%3E%3C%2Fscript%3E%0A%0A%20%20%3Cdiv%20class%3D%22container%2Dfluid%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22row%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D5%22%3E%0A%20%20%20%20%20%20%20%20%3Ch2%3ECountries%20Cultural%20Orientation%2C%20Wealth%2C%20and%20Well%2DBeing%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22form%2Dgroup%20shiny%2Dinput%2Dcontainer%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22control%2Dlabel%22%20id%3D%22graph%2Dlabel%22%20for%3D%22graph%22%3EChoose%20variables%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22graph%22%3E%3Coption%20value%3D%22Wealth%20and%20Individualism%22%20selected%3EWealth%20and%20Individualism%3C%2Foption%3E%0A%3Coption%20value%3D%22Life%20Expectancy%2C%20Individualism%20and%20Wealth%22%3ELife%20Expectancy%2C%20Individualism%20and%20Wealth%3C%2Foption%3E%0A%3Coption%20value%3D%22COVID%2D19%20Cases%20and%20Death%2C%20Individualism%20and%20Wealth%22%3ECOVID%2D19%20Cases%20and%20Death%2C%20Individualism%20and%20Wealth%3C%2Foption%3E%0A%3Coption%20value%3D%22Happiness%2C%20Individualism%20and%20Wealth%22%3EHappiness%2C%20Individualism%20and%20Wealth%3C%2Foption%3E%0A%3Coption%20value%3D%22Suicide%20Rates%2C%20Sex%2C%20Individualism%20and%20Wealth%22%3ESuicide%20Rates%2C%20Sex%2C%20Individualism%20and%20Wealth%3C%2Foption%3E%0A%3Coption%20value%3D%22Suicide%20Rates%2C%20Happiness%2C%20Individualism%20and%20Wealth%22%3ESuicide%20Rates%2C%20Happiness%2C%20Individualism%20and%20Wealth%3C%2Foption%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cscript%20type%3D%22application%2Fjson%22%20data%2Dfor%3D%22graph%22%20data%2Dnonempty%3D%22%22%3E%7B%22plugins%22%3A%5B%22selectize%2Dplugin%2Da11y%22%5D%7D%3C%2Fscript%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3Cdiv%20class%3D%22row%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BWealth%20and%20Individualism%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22wealth%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Fwealth%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Fwealth%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BLife%20Expectancy%2C%20Individualism%20and%20Wealth%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22life%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Flife%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Flife%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BCOVID%2D19%20Cases%20and%20Death%2C%20Individualism%20and%20Wealth%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22covid%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Fcovid%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Fcovid%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BHappiness%2C%20Individualism%20and%20Wealth%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22happy%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Fhappy%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Fhappy%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BSuicide%20Rates%2C%20Sex%2C%20Individualism%20and%20Wealth%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22suicide%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Fsuicide%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Fsuicide%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D12%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20data%2Ddisplay%2Dif%3D%22input%2Egraph%3D%3D%26quot%3BSuicide%20Rates%2C%20Happiness%2C%20Individualism%20and%20Wealth%26quot%3B%22%20data%2Dns%2Dprefix%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22sui%5Fhapp%22%20class%3D%22shiny%2Dplot%2Doutput%22%20style%3D%22width%3A100%25%3Bheight%3A400px%3B%22%20data%2Dhover%2Did%3D%22hover%5Fsui%5Fhapp%22%20data%2Dhover%2Ddelay%3D%22100%22%20data%2Dhover%2Ddelay%2Dtype%3D%22debounce%22%20data%2Dhover%2Dclip%3D%22TRUE%22%20data%2Dhover%2Dnull%2Doutside%3D%22TRUE%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22hover%5Fsui%5Fhapp%5Finfo%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A" scrolling="no" style="border: none; overflow:hidden; width: 100%; height: 700px;"></iframe>
+<pre class="r"><code>shinyApp(
+# User interface
+ui &lt;- fluidPage(
+    fluidRow(column(width = 5, 
+                    titlePanel(&quot;Countries Cultural Orientation, Wealth, and Well-Being&quot;),
+                    selectInput(&quot;graph&quot;, &quot;Choose variables&quot;, c(&quot;Wealth and Individualism&quot;,
+                                        &quot;Life Expectancy, Individualism and Wealth&quot;,
+                                        &quot;COVID-19 Cases and Death, Individualism and Wealth&quot;, 
+                                        &quot;Happiness, Individualism and Wealth&quot;,
+                                        &quot;Suicide Rates, Sex, Individualism and Wealth&quot;,
+                                        &quot;Suicide Rates, Happiness, Individualism and Wealth&quot;)))),
+
+fluidRow(
+#Each drop down box option and conditional specified output
+  column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;Wealth and Individualism&quot;&#39;,
+                          plotOutput(&quot;wealth&quot;, 
+                                     hover = hoverOpts(id =&quot;hover_wealth&quot;,
+                                                       delay = 100, 
+                                                       delayType = &quot;debounce&quot;)),
+                          uiOutput(&quot;hover_wealth_info&quot;)
+                          
+                          )),
+  column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;Life Expectancy, Individualism and Wealth&quot;&#39;, plotOutput(&quot;life&quot;, 
+                     hover = hoverOpts(id =&quot;hover_life&quot;,
+                                       delay = 100, 
+                                       delayType = &quot;debounce&quot;)),
+                     uiOutput(&quot;hover_life_info&quot;)
+                          )),
+   column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;COVID-19 Cases and Death, Individualism and Wealth&quot;&#39;, plotOutput(&quot;covid&quot;,
+                                       hover = hoverOpts(id =&quot;hover_covid&quot;,
+                                                         delay = 100, 
+                                                        delayType = &quot;debounce&quot;)),
+                                       uiOutput(&quot;hover_covid_info&quot;)
+                          )),
+  column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;Happiness, Individualism and Wealth&quot;&#39;, plotOutput(&quot;happy&quot;,
+                     hover = hoverOpts(id =&quot;hover_happy&quot;,
+                                       delay = 100, 
+                                       delayType = &quot;debounce&quot;)),
+                     uiOutput(&quot;hover_happy_info&quot;)
+                         )),
+  column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;Suicide Rates, Sex, Individualism and Wealth&quot;&#39;, plotOutput(&quot;suicide&quot;,
+                         hover = hoverOpts(id =&quot;hover_suicide&quot;,
+                                           delay = 100, 
+                                           delayType = &quot;debounce&quot;)),
+                         uiOutput(&quot;hover_suicide_info&quot;)
+                          
+                          )),
+  column(width = 12,
+         conditionalPanel(&#39;input.graph==&quot;Suicide Rates, Happiness, Individualism and Wealth&quot;&#39;, plotOutput(&quot;sui_happ&quot;,
+                                        hover = hoverOpts(id =&quot;hover_sui_happ&quot;,
+                                                          delay = 100,
+                                                          delayType = &quot;debounce&quot;)),
+                         uiOutput(&quot;hover_sui_happ_info&quot;)
+                          
+                          ))
+  ), 
+
+),
+# Functionality
+
+server &lt;- function(input, output, session){ 
+
+#plot and hover output  specified for each drop down box and graph
+      
+    output$wealth &lt;- renderPlot({
+        validate(need(input$graph==&quot;Wealth and Individualism&quot;, message=FALSE))
+        plot_wealth
+    })
+
+  output$hover_wealth_info &lt;- renderUI({
+    hover_wealth &lt;- input$hover_wealth
+    point_wealth &lt;- nearPoints(df, hover_wealth, xvar = &quot;individualism&quot;, yvar = &quot;gdp_per_capita&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_wealth) == 0) return(NULL)
+
+# distance from left and bottom side
+    left_px &lt;- hover_wealth$coords_css$x
+    top_px &lt;- hover_wealth$coords_css$y
+
+# background color set to transparent and z-index so tooltip is on top
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+    
+# creating tooltip
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_wealth$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_wealth$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;, point_wealth$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  })
+
+    output$life &lt;- renderPlot({
+        validate(need(input$graph==&quot;Life Expectancy, Individualism and Wealth&quot;, message=FALSE))
+        plot_life
+    })
+    
+ output$hover_life_info &lt;- renderUI({
+    hover_life &lt;- input$hover_life
+    point_life &lt;- nearPoints(df, hover_life, xvar = &quot;individualism&quot;, yvar = &quot;life_expectancy&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_life) == 0) return(NULL)
+    
+    left_px &lt;- hover_life$coords_css$x
+    top_px &lt;- hover_life$coords_css$y
+
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_life$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_life$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Life Expectancy (years): &lt;/b&gt;&quot;, point_life$life_expectancy, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;, point_life$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  })   
+    
+    output$covid &lt;- renderPlot({
+        validate(need(input$graph==&quot;COVID-19 Cases and Death, Individualism and Wealth&quot;, message=FALSE))
+        plot_covid
+    }) 
+    
+   output$hover_covid_info &lt;- renderUI({
+    hover_covid &lt;- input$hover_covid
+    point_covid &lt;- nearPoints(df, hover_covid, xvar = &quot;individualism&quot;, yvar = &quot;total_cases&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_covid) == 0) return(NULL)
+    
+    left_px &lt;- hover_covid$coords_css$x
+    top_px &lt;- hover_covid$coords_css$y
+
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+   
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_covid$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_covid$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; COVID-19 cases (per 1 million population): &lt;/b&gt;&quot;, point_covid$total_cases, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; COVID-19 deaths (per 1 million population): &lt;/b&gt;&quot;, point_covid$total_deaths, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;,  point_covid$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  })   
+    
+     output$happy &lt;- renderPlot({
+        validate(need(input$graph==&quot;Happiness, Individualism and Wealth&quot;, message=FALSE))
+        plot_happy
+    }) 
+     
+    output$hover_happy_info &lt;- renderUI({
+      hover_happy &lt;- input$hover_happy
+    point_happy &lt;- nearPoints(df, hover_happy, xvar = &quot;individualism&quot;, yvar = &quot;happiness_score&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_happy) == 0) return(NULL)
+    
+    left_px &lt;- hover_happy$coords_css$x
+    top_px &lt;- hover_happy$coords_css$y
+
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+    
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_happy$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_happy$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Happiness Score: &lt;/b&gt;&quot;, point_happy$happiness_score, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;,  point_happy$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  }) 
+    
+     output$suicide &lt;- renderPlot({
+        validate(need(input$graph==&quot;Suicide Rates, Sex, Individualism and Wealth&quot;, message=FALSE))
+        plot_suicide
+    }) 
+     
+      output$hover_suicide_info &lt;- renderUI({
+    hover_suicide &lt;- input$hover_suicide
+    point_suicide &lt;- nearPoints(df, hover_suicide, xvar = &quot;individualism&quot;, yvar = &quot;suicide_rate&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_suicide) == 0) return(NULL)
+    
+    left_px &lt;- hover_suicide$coords_css$x
+    top_px &lt;- hover_suicide$coords_css$y
+
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+    
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_suicide$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_suicide$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Suicide Rate (per 100000 population): &lt;/b&gt;&quot;, point_suicide$suicide_rate, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;, point_suicide$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Sex: &lt;/b&gt;&quot;, point_suicide$sex, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  })  
+     
+      output$sui_happ &lt;- renderPlot({
+        validate(need(input$graph==&quot;Suicide Rates, Happiness, Individualism and Wealth&quot;, message=FALSE))
+        plot_sui_happ
+    }) 
+      
+       output$hover_sui_happ_info &lt;- renderUI({
+    hover_sui_happ &lt;- input$hover_sui_happ
+    point_sui_happ &lt;- nearPoints(df, hover_sui_happ, xvar = &quot;happiness_score&quot;, yvar = &quot;suicide_rate&quot;, threshold = 5, maxpoints = 1, addDist = TRUE) 
+    if (nrow(point_sui_happ) == 0) return(NULL)
+    
+    left_px &lt;- hover_sui_happ$coords_css$x
+    top_px &lt;- hover_sui_happ$coords_css$y
+
+    style &lt;- paste0(&quot;position:absolute; z-index:100; background-color: rgba(245, 245, 245, 0.85); &quot;,
+                    &quot;left:&quot;, left_px + 2, &quot;px; top:&quot;, top_px + 2, &quot;px;&quot;)
+   
+    wellPanel(
+      style = style,
+      p(HTML(paste0(&quot;&lt;b&gt; Country: &lt;/b&gt;&quot;, point_sui_happ$country, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Happiness Score: &lt;/b&gt;&quot;, point_sui_happ$happiness_score, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Suicide Rate (per 100000 population): &lt;/b&gt;&quot;, point_sui_happ$suicide_rate, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Individualism Index: &lt;/b&gt;&quot;, point_sui_happ$individualism, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; GDP per Capita ($): &lt;/b&gt;&quot;, point_sui_happ$gdp_per_capita, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from left: &lt;/b&gt;&quot;, left_px, &quot;&lt;br/&gt;&quot;,
+                    &quot;&lt;b&gt; Distance from top: &lt;/b&gt;&quot;, top_px, &quot;&lt;/br&gt;&quot;
+                      )))
+    )
+  })  
+     
+},
+  options = list(height = 700)
+
+)</code></pre>
+<iframe src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21doctype%20html%3E%0A%3C%21%2D%2D%5Bif%20lt%20IE%207%20%5D%3E%0A%3Chtml%20lang%3D%22en%22%20class%3D%22no%2Djs%20ie6%22%3E%20%3C%21%5Bendif%5D%2D%2D%3E%0A%3C%21%2D%2D%5Bif%20IE%207%20%5D%3E%0A%3Chtml%20lang%3D%22en%22%20class%3D%22no%2Djs%20ie7%22%3E%20%3C%21%5Bendif%5D%2D%2D%3E%0A%3C%21%2D%2D%5Bif%20IE%208%20%5D%3E%0A%3Chtml%20lang%3D%22en%22%20class%3D%22no%2Djs%20ie8%22%3E%20%3C%21%5Bendif%5D%2D%2D%3E%0A%3C%21%2D%2D%5Bif%20%28gte%20IE%209%29%7C%21%28IE%29%5D%3E%3C%21%2D%2D%3E%0A%3Chtml%20lang%3D%22en%22%20class%3D%22no%2Djs%22%3E%20%3C%21%2D%2D%3C%21%5Bendif%5D%2D%2D%3E%0A%3Chead%3E%0A%3Cmeta%20charset%3D%22utf%2D8%22%3E%0A%3Cmeta%20http%2Dequiv%3D%27X%2DUA%2DCompatible%27%20content%3D%27IE%3Dedge%2Cchrome%3D1%27%3E%0A%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice%2Dwidth%2C%20initial%2Dscale%3D1%2E0%22%3E%0A%3C%21%2D%2D%20HTML5%20shim%20and%20Respond%2Ejs%20IE8%20support%20of%20HTML5%20elements%20and%20media%20queries%20%2D%2D%3E%0A%3C%21%2D%2D%5Bif%20lt%20IE%209%5D%3E%0A%3Cscript%20src%3D%22%2F%2Foss%2Emaxcdn%2Ecom%2Flibs%2Fhtml5shiv%2F3%2E7%2E0%2Fhtml5shiv%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%2F%2Foss%2Emaxcdn%2Ecom%2Flibs%2Frespond%2Ejs%2F1%2E3%2E0%2Frespond%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3C%21%5Bendif%5D%2D%2D%3E%0A%3Clink%20href%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2F%40icon%2Fthemify%2Dicons%2Fthemify%2Dicons%2Ecss%3Fv%3Db282775482260fd5fe87b8f92db29099%22%20rel%3D%22stylesheet%22%2F%3E%0A%3Clink%20href%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fcss%2Fstyle%2Ecss%3Fv%3D6c1baf841c4c1ca84c5eb0f1c98ec4d5%22%20rel%3D%22stylesheet%22%2F%3E%0A%3C%21%2D%2D%20block%20head%20%2D%2D%3E%0A%0A%3Cstyle%3E%0A%2Espinner%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%20auto%3B%0A%7D%0A%3C%2Fstyle%3E%0A%0A%3C%21%2D%2D%20block%20head%20%2D%2D%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%3Cheader%3E%0A%3C%21%2D%2D%20block%20header%20%2D%2D%3E%0A%0A%3C%21%2D%2D%20block%20header%20%2D%2D%3E%0A%3C%2Fheader%3E%0A%3Cdiv%20id%3D%22content%22%3E%0A%3C%21%2D%2D%20block%20content%20%2D%2D%3E%0A%0A%3Cdiv%20class%3D%22container%20vertical%2Dtable%22%3E%0A%3Cdiv%20class%3D%22row%20vertical%2Dalign%2Dmiddle%22%3E%0A%3Cdiv%20class%3D%22col%2Dlg%2D12%22%3E%0A%3Cdiv%20class%3D%22spinner%20text%2Dcenter%22%3E%0A%3Ch3%3EPlease%20Wait%3C%2Fh3%3E%0A%3Cimg%20alt%3D%22loading%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fimages%2Fspinner%2Egif%3Fv%3D4889784689c1b8109f97a0eecf9265f4%22%2F%3E%0A%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%3C%2Fdiv%3E%0A%0A%3C%21%2D%2D%20block%20content%20%2D%2D%3E%0A%3C%2Fdiv%3E%0A%3Cfooter%3E%0A%3C%21%2D%2D%20block%20footer%20%2D%2D%3E%0A%0A%3C%21%2D%2D%20block%20footer%20%2D%2D%3E%0A%3C%2Ffooter%3E%0A%3C%2Fbody%3E%0A%3Cscript%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fjquery%2Fdist%2Fjquery%2Emin%2Ejs%3Fv%3D220afd743d9e9643852e31a135a9f3ae%22%20type%3D%22text%2Fjavascript%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fbootstrap%2Fdist%2Fjs%2Fbootstrap%2Emin%2Ejs%3Fv%3D2f34b630ffe30ba2ff2b91e3f3c322a1%22%20type%3D%22text%2Fjavascript%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fiframe%2Dresizer%2Fjs%2FiframeResizer%2EcontentWindow%2Ejs%3Fv%3D381efb0877cc316e6c007f402203d7f0%22%20type%3D%22text%2Fjavascript%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Ejs%3Fv%3Dcec01ed9ffe3cf03c95e164a1911f274%22%20type%3D%22text%2Fjavascript%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Eframe%2Econtent%2Ejs%3Fv%3D3c17be5413e55ee145876df176d5eefc%22%20type%3D%22text%2Fjavascript%22%3E%3C%2Fscript%3E%0A%3C%21%2D%2D%20block%20scripts%20%2D%2D%3E%0A%0A%3Cscript%3E%0Avar%20app%5Furl%20%3D%20%27https%3A%2F%2Fpsyassessment%2Eshinyapps%2Eio%2Fpsy6422%5Fassignment%27%3B%0Avar%20healthcheck%5Fendpoint%20%3D%20%27%2F%5F%5Fhealth%2Dcheck%5F%5F%2F%27%3B%0Avar%20started%5Fat%20%3D%20new%20Date%28%29%2EgetTime%28%29%3B%0Avar%20finished%5Fat%20%3D%20null%3B%0Avar%20count%20%3D%200%3B%0Avar%20timeout%20%3D%20null%3B%0Afunction%20debug%28message%29%20%7B%0Aif%20%28window%2Econsole%20%26%26%20window%2Econsole%2Elog%29%20%7B%0Awindow%2Econsole%2Elog%28message%29%3B%0A%7D%0A%7D%0Afunction%20reload%28%29%20%7B%0Awindow%2Elocation%2Ereload%28true%29%3B%0A%7D%0Afunction%20wait%28%29%20%7B%0A%2F%2F%20wait%20and%20try%20again%0Acount%20%2B%3D%201%3B%0Avar%20snooze%20%3D%20Math%2Emin%283000%2C%20%28250%20%2A%20count%29%29%3B%0Adebug%28%22Application%20not%20loaded%2E%20Retrying%20in%20%22%20%2B%20snooze%20%2B%20%22ms%22%29%3B%0AsetTimeout%28function%20%28%29%20%7B%0Acheck%28%29%3B%0A%7D%2C%20snooze%29%3B%0A%7D%0Afunction%20check%28%29%20%7B%0Avar%20url%20%3D%20app%5Furl%20%2B%20healthcheck%5Fendpoint%3B%0A%24%2Eajax%28%7Burl%3A%20url%2C%20cache%3A%20false%7D%29%0A%2Edone%28function%20%28data%2C%20textStatus%2C%20xhr%29%20%7B%0Aif%20%28xhr%2Estatus%20%3D%3D%3D%20200%29%20%7B%0A%2F%2F%20log%20time%20elapsed%0Afinished%5Fat%20%3D%20new%20Date%28%29%2EgetTime%28%29%3B%0Avar%20elapsed%20%3D%20finished%5Fat%20%2D%20started%5Fat%3B%0Adebug%28%22Application%20loaded%20in%20%22%20%2B%20elapsed%20%2B%20%22ms%20%28%22%20%2B%20count%20%2B%20%22%20checks%29%2E%20Reloading%2E%22%29%3B%0Aif%20%28timeout%20%21%3D%20null%29%20%7B%0AclearTimeout%28timeout%29%3B%0A%7D%0Areload%28%29%3B%0A%7D%20else%20%7B%0Await%28%29%3B%0A%7D%0A%7D%29%0A%2Efail%28function%28%29%20%7B%0Await%28%29%3B%0A%7D%29%3B%0A%7D%0A%24%28document%29%2Eready%28function%20%28%29%20%7B%0Adebug%28%22Waiting%20for%20application%20to%20load%20%2E%2E%2E%22%29%3B%0Acheck%28%29%3B%0A%2F%2F%20reload%20regardless%20of%20success%20after%2010%20seconds%0Atimeout%20%3D%20setTimeout%28function%20%28%29%20%7B%0Adebug%28%22Application%20failed%20to%20load%20after%2010%20seconds%2E%20Reloading%2E%22%29%3B%0Areload%28%29%3B%0A%7D%2C%2010000%29%3B%0A%7D%29%3B%0A%3C%2Fscript%3E%0A%0A%3C%21%2D%2D%20block%20scripts%20%2D%2D%3E%0A%3C%2Fhtml%3E%0A" scrolling="no" style="border: none; overflow:hidden; width: 100%; height: 700px;"></iframe>
 </iframe>
 <p>You can hover over the data points to see which countries they represent and the relevant information. If the shiny application does not load or is not working properly, you can visit the application directly <a href="https://psyassessment.shinyapps.io/psy6422_assignment/">here</a>. You can also visit my <a href="https://github.com/Ljbailey/psy6422_assignment">github repository</a> to have access to all of the data, the Rmd file and scripts so you can run it locally or even do some further data exploration!</p>
 </div>

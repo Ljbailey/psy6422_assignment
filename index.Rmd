@@ -544,7 +544,7 @@ print(plot_sui_happ)
 There is no relationship between happiness scores and suicide rates. This indicates that the happiness score reflected by the Cantril Ladder is not representative of countries subjective happiness. 
 
 ### Shiny Application
-``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", echo = FALSE, results= 'hide'}
+``` {r shiny, warning = FALSE, fig.height = 10, fig.width = 15, fig.align = "center", results= 'hide'}
 
 
 shinyApp(
